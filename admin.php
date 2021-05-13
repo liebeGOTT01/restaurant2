@@ -1,7 +1,7 @@
 <?php 
    session_start();
-   include "db_conn.php";
-   if (isset($_SESSION['username']) && isset($_SESSION['id'])) {   ?>
+   include "includes/db_conn.php";
+   if (isset($_SESSION['user_email']) && isset($_SESSION['user_id'])) {   ?>
    
 <!DOCTYPE html>
 <html lang="en">
@@ -11,14 +11,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-<div class="card" style="width: 18rem;">
+	<div class="card" style="width: 8rem;">
 			  <img src="img/admin-default.png" 
-			       class="card-img-top" 
+			       class="card-img-top w-25" 
 			       alt="admin image">
 			  <div class="card-body text-center">
 			    <h5 class="card-title">
-			    	<?=$_SESSION['name']?>
+			    	<?=$_SESSION['user_email']?>
 			    </h5>
 			    <a href="logout.php" class="btn btn-dark">Logout</a>
 			  </div>
@@ -29,7 +30,7 @@
                   
 				<h1 class="display-4 fs-1">Members</h1>
 				<table class="table" 
-				       style="width: 32rem;">
+				       style="width: 10rem;">
 				  <thead>
 				    <tr>
 				      <th scope="col">#</th>
@@ -44,8 +45,8 @@
 				  	while ($rows = mysqli_fetch_assoc($res)) {?>
 				    <tr>
 				      <th scope="row"><?=$i?></th>
-				      <td><?=$rows['name']?></td>
-				      <td><?=$rows['username']?></td>
+				      <td><?=$rows['user_name']?></td>
+				      <td><?=$rows['user_email']?></td>
 				      <td><?=$rows['role']?></td>
 				    </tr>
 				    <?php $i++; }?>

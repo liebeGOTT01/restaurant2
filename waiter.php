@@ -1,7 +1,8 @@
 <?php 
    session_start();
-   include "db_conn.php";
-   if (isset($_SESSION['username']) && isset($_SESSION['id'])) {   ?>
+   include "includes/db_conn.php";
+   if (isset($_SESSION['user_email']) && isset($_SESSION['user_id'])) {   
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,17 +15,16 @@
 <body>
     WAITER
 
-    <div class="card" style="width: 18rem;">
-			  <img src="img/user-default.png" 
-			       class="card-img-top" 
-			       alt="admin image">
-			  <div class="card-body text-center">
-			    <h5 class="card-title">
-			    	<?=$_SESSION['name']?>
-			    </h5>
-			    <a href="logout.php" class="btn btn-dark">Logout</a>
-			  </div>
-			</div>
+    <div class="card" style="width: 5rem;">
+		<img src="img/user-default.png" class="card-img-top" alt="admin image">
+		<div class="card-body text-center">
+			<h5 class="card-title">
+			    <?=$_SESSION['user_email']?>
+			</h5>
+			<a href="logout.php" class="btn btn-dark">Logout</a>
+		</div>
+	</div>
+
 </body>
 </html>
 <?php }else{
