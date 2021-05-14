@@ -1,6 +1,6 @@
 <?php  
 session_start();
-include "../includes/db_conn.php";
+include "db_conn.php";
 if (isset($_POST['user_email']) && isset($_POST['user_password']) && isset($_POST['role'])) {
 	function test_input($data) {
 	  $data = trim($data);

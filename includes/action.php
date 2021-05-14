@@ -1,56 +1,61 @@
-<?php   
+<?php
+session_start();
+ini_set('display_errors', 1);
+Class Action {
+	private $db;
 
-class Action extends DbConn{
-    public function login(){
-        if (isset($_POST['user_email']) && isset($_POST['user_password']) && isset($_POST['role'])){
-            function test_input($data) {
-              $data = trim($data);
-              $data = stripslashes($data);
-              $data = htmlspecialchars($data);
-              return $data;
-            }
-        
-            $user_email = test_input($_POST['user_email']);
-            $user_password = test_input($_POST['user_password']);
-            $role = test_input($_POST['role']);
-        
-            if(empty($user_email)){
-                header("Location: ../index.php?error=User Name is Required");
-            }else if (empty($user_password)) {
-                header("Location: ../index.php?error=user_password is Required");
-            }else{
-        
-                // Hashing the user_password
-                // $user_password = md5($password);
-                
-                $sql = "SELECT * FROM user_table WHERE user_email='$user_email' AND user_password='$user_password'";
-                $result = mysqli_query($conn, $sql);
-        
-                if (mysqli_num_rows($result) === 1) {
-                    // the user name must be unique
-                    $row = mysqli_fetch_assoc($result);
-                    if ($row['user_password'] === $user_password && $row['role'] == $role) {
-                        $_SESSION['username'] = $row['username'];
-                        $_SESSION['user_id'] = $row['user_id'];
-                        $_SESSION['role'] = $row['role'];
-                        $_SESSION['user_email'] = $row['user_email'];
-        
-                        if ($_SESSION['role'] == 'admin'){
-                            header("Location: ../admin.php");
-                        }else {
-                            header("Location: ../waiter.php");
-                        }
-        
-                    }else {
-                        header("Location: ../index.php?error=Incorect User name or password");
-                    }
-                }else {
-                    header("Location: ../index.php?error=Incorect User name or password");
-                }
-            }
-        }else {
-            header("Location: ../index.php");
-        }
-    }
+	public function __construct() {
+		ob_start();
+		include 'db_connect.php';
+		$this->db = $conn;
+	}
+
+	function __destruct() {
+	    $this->db->close();
+	    ob_end_flush();
+	}
+	
+	function save_category(){
+		extract($_POST);
+		$data = "name = '$name' ";
+		if(empty($id)){
+			$save = $this->db->query("INSERT INTO category_table set ".$data);
+		}else{
+			$save = $this->db->query("UPDATE category_table set ".$data." where id=".$id);
+		}
+		if($save)
+			return 1;
+	}
+
+	function delete_category(){
+		extract($_POST);
+		$delete = $this->db->query("DELETE FROM category_table where id = ".$id);
+		if($delete)
+			return 1;
+	}
+
+	    //----ACTIONS FOR PRODUCT-----
+		function save_product(){
+			extract($_POST);
+			$data = " name = '$name' ";
+			$data .= ", sku = '$sku' ";
+			$data .= ", category_id = '$category_id' ";
+			$data .= ", description = '$description' ";
+			$data .= ", price = '$price' ";
+	
+			if(empty($id)){
+				$save = $this->db->query("INSERT INTO product_list set ".$data);
+			}else{
+				$save = $this->db->query("UPDATE product_list set ".$data." where id=".$id);
+			}
+			if($save)
+				return 1;
+		}
+	
+		function delete_product(){
+			extract($_POST);
+			$delete = $this->db->query("DELETE FROM product_list where id = ".$id);
+			if($delete)
+				return 1;
+		}
 }
-$action = new Action();

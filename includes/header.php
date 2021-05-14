@@ -42,7 +42,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="table.php">
+                <a class="nav-link" href="category1.php">
                     <i class="fas fa-couch"></i>
                     <span>Table</span>
                 </a>
