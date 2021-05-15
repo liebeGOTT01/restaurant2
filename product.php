@@ -1,196 +1,85 @@
-<?php 
-    include('includes/header.php');
-    include('includes/db.php');
-	$sku = mt_rand(1,99999999);
-	$sku = sprintf("%'.08d\n", $sku);
-	$i = 1;
-	while($i == 1){
-		$chk = $conn->query("SELECT * FROM product_list where sku ='$sku'")->num_rows;
-		if($chk > 0){
-			$sku = mt_rand(1,99999999);
-			$sku = sprintf("%'.08d\n", $sku);
-		}else{
-			$i=0;
-		}
-	}
+<?php
+include('includes/header.php'); 
+include('includes/function.php');
+$myfunction=new functions;           
 ?>
-<style>
- #btn{
-	 width:60%;
- }
-</style>
-<div class="container-fluid pt-5">
-	
-	<div class="col-lg-12">
-		<div class="row">
-			<!-- FORM Panel -->
-			<div class="col-md-4">
-			<form action="" id="manage-product">
-				<div class="card ">
-					<div class="card-header">
-						    Product Form
-				  	</div>
-					<div class="card-body">
-							<input type="hidden" name="id">
-							<div class="form-group">
-								<label class="control-label">Product Id</label>
-								<input type="text" class="form-control" name="sku" value="<?php echo $sku ?>">
-							</div>
-							
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-4 text-gray-800">Product Management</h1>
+					<div class="col" align="right">
+						<button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter" name="add_product" id="add_product">
+							<i class="fas fa-plus"></i>
+						</button>
 					</div>
-					<div class="card-body">
-							<div class="form-group">
-								<label class="control-label">Category</label>
-								<select name="category_id" id="" class="custom-select browser-default">
-								<?php 
 
-								$cat = $conn->query("SELECT * FROM category_list order by name asc");
-								while($row=$cat->fetch_assoc()):
-									$cat_arr[$row['id']] = $row['name'];
-								?>
-									<option value="<?php echo $row['id'] ?>"><?php echo $row['name'] ?></option>
-								<?php endwhile; ?>
-								</select>
+					<!-- Modal to add new product-->
+					<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered" role="document">
+							<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+								</button>
 							</div>
-						<div class="form-group">
-							<label class="control-label">Product Name</label>
-							<input type="text" class="form-control" name="name" >
-						</div>
-						<div class="form-group">
-							<label class="control-label">Description</label>
-							<textarea class="form-control" cols="30" rows="3" name="description"></textarea>
-						</div>
-						<div class="form-group">
-							<label class="control-label">Product Price</label>
-							<input type="number" step="any" class="form-control text-right" name="price" >
-						</div>		
-					</div>
-					<div class="card-footer">
-						<div class="row">
-							<div class="col-md-12">
-								<button class="btn btn-sm btn-primary col-sm-3 offset-md-3 ml-2"> Save</button>
-								<button id="btn" class="btn btn-sm btn-danger text-white col-sm-3 offset-md-3 ml-2" type="button" onclick="$('#manage-product').get(0).reset()">X</button>
+							<div class="modal-body">
+								<div class="form-group">
+									<label>Category</label>
+									<select name="category_name" class="form-control" required data-parsley-trigger="change">
+										<option value="">Select Category</option>
+										<?php
+											foreach($category_result as $category){
+												echo '<option value="'.$category["category_name"].'">'.$category["category_name"].'</option>';
+											}
+										?>
+									</select>
+								</div>
+								<div class="form-group">
+									<label>Product Name</label>
+									<input type="text" name="product_name" id="product_name" class="form-control"/>
+								</div>
+								<div class="form-group">
+									<label>Product Price</label>
+									<input type="text" name="product_price" id="product_price" class="form-control"/>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<div class="row">
+									<input type="submit" class="btn btn-primary" name="enterProduct" value="save">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								</div>
+							</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			</form>
-			</div>
-			<!-- FORM Panel -->
 
-			<!-- Table Panel -->
-			<div class="col-md-8">
-				<div class="card">
-					<div class="card-body">
-						<table class="table table-bordered table-hover">
-							<thead>
-								<tr>
-									<th class="text-center">#</th>
-									<th class="text-center">Product Info</th>
-									<th class="text-center">Action</th>
-								</tr>
-							</thead>
-							<tbody>
-								<?php 
-								$i = 1;
-								$prod = $conn->query("SELECT * FROM product_list order by id asc");
-								while($row=$prod->fetch_assoc()):
-								?>
-								<tr>
-									<td class="text-center"><?php echo $i++ ?></td>
-									<td class="">
-										<p>SKU : <b><?php echo $row['sku'] ?></b></p>
-										<p><small>Category : <b><?php echo $cat_arr[$row['category_id']] ?></b></small></p>
-										<p><small>Name : <b><?php echo $row['name'] ?></b></small></p>
-										<p><small>Description : <b><?php echo $row['description'] ?></b></small></p>
-										<p><small>Price : <b><?php echo number_format($row['price'],2) ?></b></small></p>
-									</td>
-									<td class="text-center">
-										<button class="btn btn-sm btn-primary edit_product" type="button" data-id="<?php echo $row['id'] ?>" data-name="<?php echo $row['name'] ?>" data-sku="<?php echo $row['sku'] ?>" data-category_id="<?php echo $row['category_id'] ?>" data-description="<?php echo $row['description'] ?>" data-price="<?php echo $row['price'] ?>" >Edit</button>
-										<button class="btn btn-sm btn-danger delete_product" type="button" data-id="<?php echo $row['id'] ?>">Delete</button>
-									</td>
-								</tr>
-								<?php endwhile; ?>
-							</tbody>
-						</table>
+					<div class="container">
+						<?php 
+							$connection = $myfunction->openConnection();
+							$statement = $connection->prepare("SELECT * FROM product_table");
+							$statement->execute();
+							$product = $statement->fetchAll();
+							$productCount = $statement->rowCount();
+							foreach($product as $newProduct) {
+						?>
+							<div class="card" style="width: 18rem;">
+								<img class="card-img-top" src="https://scx2.b-cdn.net/gfx/news/hires/2016/howcuttingdo.jpg" alt="Card image cap">
+								<div class="card-body">
+									<h5 class="card-title"><?php echo $newProduct['product_name'] ?></h5>
+									<p class="card-text">
+										<?php echo $newProduct['product_name'] ?>
+										<?php echo $newProduct['product_price'] ?>
+									</p>
+								</div>
+								<div class="card-footer">
+									<span class="row float-right pt-2 pl-2 pr-2 details">
+										<input type="submit" class="btn btn-primary" name="prod_status" value="<?php echo $newProduct['product_status']?>">
+										<a href="edit.php?editId=<?php echo""?>"><i class="fa fa-edit text-warning" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="Edit Task"></i></a> &nbsp;
+										<a href="index.php?deleteId=<?php echo ""?>"><i class="fa fa-trash text-danger" aria-hidden="true"  data-toggle="tooltip" data-placement="left" title="Delete Task"></i></a>
+									</span>
+								</div>
+							</div>
+						<?php 
+						}
+						?>
 					</div>
-				</div>
-			</div>
-			<!-- Table Panel -->
-		</div>
-	</div>	
-
-</div>
-<style>
-	td{
-		vertical-align: middle !important;
-	}
-	td p{
-		margin:unset;
-	}
-</style>
-<script>
-
-	$('table').dataTable()
-	$('#manage-product').submit(function(e){
-		e.preventDefault()
-		start_load()
-		$.ajax({
-			url:'ajax.php?action=save_product',
-			data: new FormData($(this)[0]),
-		    cache: false,
-		    contentType: false,
-		    processData: false,
-		    method: 'POST',
-		    type: 'POST',
-			success:function(resp){
-				if(resp==1){
-					alert_toast("Data successfully added",'success')
-					setTimeout(function(){
-						location.reload()
-					},1500)
-
-				}
-				else if(resp==2){
-					alert_toast("Data successfully updated",'success')
-					setTimeout(function(){
-						location.reload()
-					},1500)
-
-				}
-			}
-		})
-	})
-	$('.edit_product').click(function(){
-		start_load()
-		var cat = $('#manage-product')
-		cat.get(0).reset()
-		cat.find("[name='id']").val($(this).attr('data-id'))
-		cat.find("[name='name']").val($(this).attr('data-name'))
-		cat.find("[name='sku']").val($(this).attr('data-sku'))
-		cat.find("[name='category_id']").val($(this).attr('data-category_id'))
-		cat.find("[name='description']").val($(this).attr('data-description'))
-		cat.find("[name='price']").val($(this).attr('data-price'))
-		end_load()
-	})
-	$('.delete_product').click(function(){
-		_conf("Are you sure to delete this product?","delete_product",[$(this).attr('data-id')])
-	})
-	function delete_product($id){
-		start_load()
-		$.ajax({
-			url:'ajax.php?action=delete_product',
-			method:'POST',
-			data:{id:$id},
-			success:function(resp){
-				if(resp==1){
-					alert_toast("Data successfully deleted",'success')
-					setTimeout(function(){
-						location.reload()
-					},1500)
-
-				}
-			}
-		})
-	}
-</script>
+				
