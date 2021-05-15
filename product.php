@@ -23,6 +23,14 @@ $myfunction=new functions;
 							</div>
 							<div class="modal-body">
 								<div class="form-group">
+									<label>Product Name</label>
+									<input type="text" name="product_name" id="product_name" class="form-control"/>
+								</div>
+								<div class="form-group">
+									<label>Product Image</label>
+									<input type="text" name="product_image" id="product_name" class="form-control"/>
+								</div>
+								<div class="form-group">
 									<label>Category</label>
 									<select name="category_name" class="form-control" required data-parsley-trigger="change">
 										<option value="">Select Category</option>
@@ -33,10 +41,7 @@ $myfunction=new functions;
 										?>
 									</select>
 								</div>
-								<div class="form-group">
-									<label>Product Name</label>
-									<input type="text" name="product_name" id="product_name" class="form-control"/>
-								</div>
+								
 								<div class="form-group">
 									<label>Product Price</label>
 									<input type="text" name="product_price" id="product_price" class="form-control"/>
@@ -62,7 +67,7 @@ $myfunction=new functions;
 							foreach($product as $newProduct) {
 						?>
 							<div class="card" style="width: 18rem;">
-								<img class="card-img-top" src="https://scx2.b-cdn.net/gfx/news/hires/2016/howcuttingdo.jpg" alt="Card image cap">
+								<img class="card-img-top" src="<?php echo $newProduct['product_image'] ?>" alt="Card image cap">
 								<div class="card-body">
 									<h5 class="card-title"><?php echo $newProduct['product_name'] ?></h5>
 									<p class="card-text">

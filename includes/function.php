@@ -66,6 +66,18 @@ class functions{
             $statement->execute();
         }
     }
+
+    public function addProduct(){
+        if(isset($_POST['enterProduct'])){
+            $name=$_POST['product_name'];
+            $image=$_POST['product_image'];
+            $category=$_POST['product_category'];
+            $price=$_POST['product_price'];
+            $connection =$this->openConnection(); 
+            $statement=$connection->prepare("INSERT INTO  category_table(name) VALUES('$name','$image','$category','$price')");
+            $statement->execute();
+        }
+    }
 }
      
 
