@@ -1,11 +1,10 @@
 <?php
-include('includes/header.php');
-
+include('includes/adminHeader.php');
 include('includes/function.php');
 $myfunction=new functions;
 $myfunction->addCat();
 $myfunction->updateCat();
-$myfunction->delete();
+$myfunction->deleteCat();
 
 ?>
 
@@ -99,6 +98,7 @@ $myfunction->delete();
 											</div>
 										</div>
 									</div>
+									<!--end of modal for edit category -->
 								<?php }?>
 							</tbody>
 						</table>
@@ -117,3 +117,4 @@ $myfunction->delete();
 		vertical-align: middle !important;
 	}
 </style>
+
