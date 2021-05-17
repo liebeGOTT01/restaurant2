@@ -12,7 +12,16 @@
   transform: translate(-50%, -50%);
 }
 </style>
+
 <div class="container">
+
+    <?php
+        $myfunction->getTable();
+    ?>
+</div>
+
+
+<!-- <div class="container">
     <div class="row mt-5 ">
         <div class="col">
             <div class="card mr-4">
@@ -159,7 +168,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 
 

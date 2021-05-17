@@ -10,7 +10,17 @@
 	<div class="col-lg-12">
 		<div class="card">
 			<div class="card-header">
-				<h4>Orders list for table --</h4>
+				<?php 
+					$connection =$myfunction->openConnection(); 
+					$statement=$connection->prepare("SELECT table_name FROM table_data");
+					$statement->execute();
+					$table_list = $statement->fetchAll();
+					foreach($table_list as $table) {
+				?>
+					<h4><?php echo $table['table_name']?></h4>
+				<?php
+					}
+				?>
 			</div>
 			<div class="card-body">
 				<form method="POST">

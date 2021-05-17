@@ -72,7 +72,7 @@ $myfunction->updateProduct();
 							foreach($product as $newProduct) {
 						?>
 						
-							<div class="card" style="width: 18rem;">
+							<div class="card mt-5" style="width: 18rem;">
 								<img class="card-img-top" src="<?php echo $newProduct['product_image'] ?>" alt="Card image cap">
 								<div class="card-body">
 									<h5 class="card-title"><?php echo $newProduct['product_name'] ?></h5>

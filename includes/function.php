@@ -176,11 +176,18 @@ class functions{
             $qty= $_POST['qty'];
             $status = "pending";
             $connection =$this->openConnection();
+
             $getPrice=$connection->prepare("SELECT product_price FROM product_table  WHERE product_name='$order'");
             $getPrice->execute();
             $prod_price=$getPrice->fetch();
             $price= $prod_price['product_price'];
-            $statement=$connection->prepare("INSERT INTO  order_item_table (product_name,product_quantity,product_price,order_status) VALUES('$order','$qty','$price','$status')");
+
+            $getTable=$connection->prepare("SELECT table_name FROM table_data  WHERE product_name='$order'");
+            $getTable->execute();
+            $table_list=$getTable->fetch();
+            $table= $table_list['table_name'];
+
+            $statement=$connection->prepare("INSERT INTO  order_item_table (table_name,product_name,product_quantity,product_price,order_status) VALUES('$table',$order','$qty','$price','$status')");
             $statement->execute();
         }
     }  
@@ -193,6 +200,30 @@ class functions{
             $statement=$connection->prepare("DELETE FROM order_item_table WHERE order_item_id=$prod_id");
             $statement->execute();
         }
+    }
+
+    //function to get the list of table and adding it to waiter table
+    public function getTable(){
+        $connection =$this->openConnection(); 
+        $statement=$connection->prepare("SELECT * FROM table_data ORDER BY table_name ASC ");
+        $statement->execute();
+        $table_result = $statement->fetchAll();
+        foreach($table_result as $table){
+            echo'<div class="col">
+                    <div class="card mr-4">
+                        <div class="card-header bg-primary">
+                        <span class="text-white text-center">'.$table["table_status"].'</span>
+                        </div>
+                        <div class="position-relative">
+                            <img class="img-fluid" src="img/table.png" alt="">
+                            <div class="centered text-white h5">'.$table["table_name"].'</div>
+                        </div>
+                        <div class="card-footer bg-primary">
+                            <a href="addOrder.php"><button type="button" class="btn btn-light w-100">Add Order</button></a>
+                        </div>
+                    </div>
+                </div>';
+        } 
     }
 }
 ?>
