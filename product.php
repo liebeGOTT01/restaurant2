@@ -62,7 +62,7 @@ $myfunction->updateProduct();
 					</div>
 					<!-- end of Modal to add new product-->
 
-					
+					<!-- product list -->
 						<?php 
 							$connection = $myfunction->openConnection();
 							$statement = $connection->prepare("SELECT * FROM product_table");
@@ -121,7 +121,7 @@ $myfunction->updateProduct();
 												</div>
 												<div class="form-group input-group-lg">
 													<label for="exampleInputEmail1">Product Image</label>
-													<input type="text" class="form-control" name="editProduct_iamge" aria-label="Large" value="<?php echo $newProduct['product_image'] ?>">
+													<input type="text" class="form-control" name="editProduct_image" aria-label="Large" value="<?php echo $newProduct['product_image'] ?>">
 												</div>
 												<div class="form-group input-group-lg">
 													<label for="exampleInputEmail1">Product Price</label>
