@@ -35,22 +35,46 @@ class functions{
 
     //function for log in based on the role
     public function login(){
-        if(isset($_POST['login'])){
-            $email = $_POST['user_email'];
-            $password = $_POST['user_password'];
+        if (isset($_POST['user_email']) && isset($_POST['user_password']) && isset($_POST['role'])) {
+            $user_email = $_POST['user_email'];
+            $user_password = $_POST['user_password'];
             $role = $_POST['role'];
-            $connection = $this->openConnection();
-            $statement = $connection->prepare("SELECT * FROM user_table WHERE user_email= $email AND user_password = $password");
-            $statement->execute();
-            $user = $statement->fetch();
-            $total = $statement->rowCount();
-
-            if($_SESSION['role'] == 'admin' ){
-                header("Location: ../adminDash.php");
-			}else{
-				header("Location: ../waiter.php");
-			}
+        
+            if (empty($user_email)) {
+                header("Location: ../index.php?error=User Name is Required");
+            }else if (empty($user_password)) {
+                header("Location: ../index.php?error=user_password is Required");
+            }else {
+                $connection = $this->openConnection();
+                $statement = $connection->prepare("SELECT * FROM user_table WHERE user_email= $user_email AND user_password = $user_password");
+                $statement->execute();
+                $user = $statement->fetch();
+                $total = $statement->rowCount();
+        
+                if ($total === 1) {
+                    // the user name must be unique
+                    if ($user['user_password'] === $user_password && $user['role'] == $role) {
+                        $_SESSION['user_name'] = $user['user_name'];
+                        $_SESSION['user_id'] = $user['user_id'];
+                        $_SESSION['role'] = $user['role'];
+                        $_SESSION['user_email'] = $user['user_email'];
+        
+                        if ($_SESSION['role'] == 'admin'){
+                            header("Location: ../adminDash.php");
+                        }else {
+                            header("Location: ../waiterDash.php");
+                        }
+        
+                    }else {
+                        header("Location: ../index.php?error=Incorect User name or password");
+                    }
+                }else {
+                    header("Location: ../index.php?error=Incorect User name or password");
+                }
+            }
             
+        }else {
+            header("Location: ../index.php");
         }
     }
 
@@ -96,14 +120,14 @@ class functions{
         }
     }
 
-    //function to get all product which willl be use for dropdown in adding order
+    //function to get all product which will be use for dropdown in adding order
     public function getProduct(){
         $connection =$this->openConnection(); 
         $statement=$connection->prepare("SELECT * FROM product_table ORDER BY product_name ASC ");
         $statement->execute();
         $product_result = $statement->fetchAll();
         foreach($product_result as $product){
-            echo '<option value="'.$product["product_name"].','.$product["product_price"].'">'.$product["product_name"].'<p> | </p>'.$product["product_price"].'</option>';
+            echo '<option value="'.$product["product_name"].'">'.$product["product_name"].'</option>';
         } 
     }
 
@@ -122,14 +146,15 @@ class functions{
 
     //function to update product
     public function updateProduct(){
-        if(isset($_POST['editProd'])){
+        if(isset($_POST['editProduct'])){
             $prod_id=$_POST['prod_id']; 
             $newName=$_POST['editProduct_name'];
             $newImage=$_POST['editProduct_image'];
             $newCategory=$_POST['editProduct_category'];
-            $newPrice=$_POST['editProduct_price'];   
+            $newPrice=$_POST['editProduct_price'];  
+            echo '<script> alert($prod_id +$newName+$newImage+$newCategory+$newPrice ) </script>' ;
             $connection =$this->openConnection(); 
-            $statement=$connection->prepare("UPDATE product_table SET product_name=('$newName') , product_image=('$newImage'), category_name= ('$newCategory'), product_price=('$newPrice') WHERE id=$prod_id");
+            $statement=$connection->prepare("UPDATE product_table SET product_name='$newName' , product_image='$newImage', category_name= '$newCategory', product_price='$newPrice' WHERE product_id=$prod_id");
             $statement->execute();
         }
     }
@@ -144,27 +169,30 @@ class functions{
         }
     }
 
+    //function to add order which is to be submitted to the kitchen
     public function addOrder(){
-        if(isset($_POST['add_order'])){
+        if(isset($_POST['addOrder'])){
             $order= $_POST['productOrder'];  
-            $qty= $_POST['qty'];  
-            $connection =$this->openConnection(); 
-            $statement=$connection->prepare("SELECT * FROM product_table SET product_name=$order");
+            $qty= $_POST['qty'];
+            $status = "pending";
+            $connection =$this->openConnection();
+            $getPrice=$connection->prepare("SELECT product_price FROM product_table  WHERE product_name='$order'");
+            $getPrice->execute();
+            $prod_price=$getPrice->fetch();
+            $price= $prod_price['product_price'];
+            $statement=$connection->prepare("INSERT INTO  order_item_table (product_name,product_quantity,product_price,order_status) VALUES('$order','$qty','$price','$status')");
             $statement->execute();
-            $product_order = $statement->fetchAll();
+        }
+    }  
 
-            foreach($product_order as $order){
-            echo '<tr>
-                <td>'.$order["product_name"].'</td>
-                <td>'.$qty.'</td>
-                <td>'.$order["price"].'</td>
-            </tr>
-            ';
-            }
+    //function to delete a specific ordered product
+    public function deleteOrderedProduct(){
+        if(isset($_POST['deleteOrderedProduct'])){
+            $prod_id= $_POST['prod_id'];    
+            $connection =$this->openConnection(); 
+            $statement=$connection->prepare("DELETE FROM order_item_table WHERE order_item_id=$prod_id");
+            $statement->execute();
         }
     }
 }
-     
-
-
 ?>

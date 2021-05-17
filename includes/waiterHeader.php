@@ -114,7 +114,7 @@
                         </div>
                     </div>
                 </nav>
-            <div class="container-fluid">
+                <div class="container-fluid">
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.js"></script>

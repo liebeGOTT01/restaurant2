@@ -1,11 +1,7 @@
 <?php 
-	// include('includes/db_conn.php');
-   	// session_start();
-   	// if (!isset($_SESSION['user_email']) && !isset($_SESSION['user_id'])) {
-
 	include('includes/function.php');
 	$myfunction=new functions; 
-	$myfunction->login();
+	//$myfunction->login();
 ?>
 
 
