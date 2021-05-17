@@ -71,6 +71,7 @@ $myfunction->updateProduct();
 							$productCount = $statement->rowCount();
 							foreach($product as $newProduct) {
 						?>
+						
 							<div class="card" style="width: 18rem;">
 								<img class="card-img-top" src="<?php echo $newProduct['product_image'] ?>" alt="Card image cap">
 								<div class="card-body">
@@ -92,7 +93,6 @@ $myfunction->updateProduct();
 									</span>
 								</div>
 							</div>
-					
 							<!-- Modal to edit product -->
 							<div class="modal fade editModal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" id="editProd">
 								<div class="modal-dialog" role="document">

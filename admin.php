@@ -14,7 +14,7 @@
 
 <body>
 	<div class="card" style="width: 8rem;">
-			  <img src="img/admin-default.png" 
+			  <img src="./img/admin.jpg" 
 			       class="card-img-top w-25" 
 			       alt="admin image">
 			  <div class="card-body text-center">
