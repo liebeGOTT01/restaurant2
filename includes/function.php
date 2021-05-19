@@ -127,7 +127,7 @@ class functions{
         $statement->execute();
         $product_result = $statement->fetchAll();
         foreach($product_result as $product){
-            echo '<option value="'.$product["product_name"].'">'.$product["product_name"].'</option>';
+            echo '<option value="'.$product["product_name"].'">'.$product["product_name"].' '.'<span class="price">'.$product["product_price"].'</span>'.'</option>';
         } 
     }
 
@@ -170,27 +170,24 @@ class functions{
     }
 
     //function to add order which is to be submitted to the kitchen
-    public function addOrder(){
-        if(isset($_POST['addOrder'])){
-            $order= $_POST['productOrder'];  
-            $qty= $_POST['qty'];
-            $status = "pending";
-            $connection =$this->openConnection();
+    // public function addOrder(){
+    //     if(isset($_POST['addOrder'])){
+    //         $order= $_POST['productOrder'];  
+    //         $qty= $_POST['qty'];
+    //         $status = "pending";
+    //         $connection =$this->openConnection();
 
-            $getPrice=$connection->prepare("SELECT product_price FROM product_table  WHERE product_name='$order'");
-            $getPrice->execute();
-            $prod_price=$getPrice->fetch();
-            $price= $prod_price['product_price'];
+    //         $getPrice=$connection->prepare("SELECT product_price FROM product_table  WHERE product_name='$order'");
+    //         $getPrice->execute();
+    //         $prod_price=$getPrice->fetch();
+    //         $price= $prod_price['product_price'];
 
-            $getTable=$connection->prepare("SELECT table_name FROM order_item_table  WHERE product_name='$order'");
-            $getTable->execute();
-            $table_list=$getTable->fetch();
-            $table= $table_list['table_name'];
+    //         $table= $_POST['tableNo'];
 
-            $statement=$connection->prepare("INSERT INTO  order_item_table (table_name,product_name,product_quantity,product_price,order_status) VALUES('$table',$order','$qty','$price','$status')");
-            $statement->execute();
-        }
-    }  
+    //         $statement=$connection->prepare("INSERT INTO  order_item_table (table_name,product_name,product_quantity,product_price,order_status) VALUES('$table',$order','$qty','$price','$status')");
+    //         $statement->execute();
+    //     }
+    // }  
 
     //function to delete a specific ordered product
     public function deleteOrderedProduct(){
@@ -208,6 +205,7 @@ class functions{
         $statement=$connection->prepare("SELECT * FROM table_data ORDER BY table_name ASC ");
         $statement->execute();
         $table_result = $statement->fetchAll();
+       
         foreach($table_result as $table){
             echo'<div class="col">
                     <div class="card mr-4">
@@ -223,6 +221,17 @@ class functions{
                         </div>
                     </div>
                 </div>';
+        } 
+    }
+
+    //function to get all product which will be use for dropdown in adding order
+    public function getTableName(){
+        $connection =$this->openConnection(); 
+        $statement=$connection->prepare("SELECT table_name FROM table_data ORDER BY table_name ASC ");
+        $statement->execute();
+        $table = $statement->fetchAll();
+        foreach($table as $table_name){
+            echo '<option value="'.$table_name["table_name"].'">'.$table_name["table_name"].'</option>';
         } 
     }
 }
