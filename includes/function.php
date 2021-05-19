@@ -182,7 +182,7 @@ class functions{
             $prod_price=$getPrice->fetch();
             $price= $prod_price['product_price'];
 
-            $getTable=$connection->prepare("SELECT table_name FROM table_data  WHERE product_name='$order'");
+            $getTable=$connection->prepare("SELECT table_name FROM order_item_table  WHERE product_name='$order'");
             $getTable->execute();
             $table_list=$getTable->fetch();
             $table= $table_list['table_name'];
