@@ -2,11 +2,13 @@
     include('includes/waiterHeader.php'); 
     include('includes/function.php');
     $myfunction=new functions; 
+	$myfunction->addOrder();
 ?>
 
 <div class="container">
 	<div class="row">
     <div class="col-6">
+
     <?php 
 		$connection = $myfunction->openConnection();
 		$statement = $connection->prepare("SELECT * FROM product_table ORDER BY category_name ASC");
@@ -15,23 +17,31 @@
 		$productCount = $statement->rowCount();
 		foreach($product as $newProduct) {
 	?>
+
+	<form  method="POST">
 		<div class="card mb-4" style="width:10rem;">
 			<img class="card-img-top" src="<?php echo $newProduct['product_image'] ?>" alt="Card image cap">
 			<div class="card-body ">
-				<h5 class="card-title prod_name" ><?php echo $newProduct['product_name'] ?></h5>
+				<h5 class="card-title prod_name" name="menu"><?php echo $newProduct['product_name'] ?></h5>
+				<input type="hidden" name="menu"value="<?php echo $newProduct['product_name'] ?>">
 				<p class="card-text">
 					<span>
 						<?php echo $newProduct['category_name'] ?>
 					</span>
-					<span class="prod_price">
+					<span class="prod_price" name="price">
 						<?php echo $newProduct['product_price'] ?>
+						<input type="hidden" name="price"value="	<?php echo $newProduct['product_price'] ?>">
 					</span>
+					<label class="control-label">Qty</label>
+					<input name="qty" type="number" min="1" value="1"class="form-control text-right" step="any" id="qty" >
+					<input name="tableNo" type="hidden"  id="tableno" >
 				</p>
 			</div>
 			<div class="card-footer">
-				<button type="submit" class="btn btn-success add-order" >Add Order</button>
+				<button type="submit" class="btn btn-success add-order" name="addOrder" >Add Order</button>
 			</div>
         </div>
+	</form>
     <?php
         }
     ?>
@@ -41,7 +51,7 @@
 		<div class="col">
 			<label class="control-label">List of Tables</label>
 			<select name="tableOrder" id="tableSelect" class="form-control" required data-parsley-trigger="change">
-				<option value="" >Select Table</option>
+				<option value="">Select Table</option>
 				<?php
 					$myfunction->getTableName();
 				?>
@@ -51,7 +61,8 @@
 		<br>
 		<div class="col">
 			<div class="panel panel-default p-2">
-				<div class="panel-body">table name goes here..</div>
+
+				<div class="panel-body p-3" name="tableNo"></div>
 			</div>
 		</div>
 		<div class="container">
@@ -76,7 +87,9 @@
 						</tr>
 					</thead>
 					<tbody id="tbody">
-
+						<?php
+							$myfunction->dispOrder();
+						?>
 					</tbody>
 					<tfoot>
 						<tr>
@@ -87,53 +100,14 @@
 					</tfoot>
 				</table>
 				<button type="submit" class="btn btn-primary w-100">Submit to kitchen</button>
-				<script>
-					$(document).ready(function(){
-						$count=1;
-						$('.add-order').click(function(){	
-
-							$productName=$(this).parent().prev().children('.prod_name').html()
-							console.log("clicked")
-							$quantity=$('.qty').val();
-							$price= $(this).parent().prev().children('.card-text').children('.prod_price').html()
-							
-							console.log($productName);
-							console.log($price);
-							$('#tbody').append('<tr class="tableRow">'+
-								'<td>'+$count+'</td>'+
-								'<td>'+$productName+'</td>'+
-								'<td>'+'<input type="number" min="1" value="1" class="w-100 quantity">'+'</td>'+
-								'<td class="price">'+$price+'</td>'+
-								'<td class="amount">'+'</td>'+
-								'<td>'+'<button type="submit" class="btn btn-danger text-white btn-circle delete">'+'X'+'</button>'+'</td>'+
-							'</tr>');
-							$count++;	
-							
-							$('.quantity').click(function(){
-								$quantity=$('.quantity').val()
-								console.log($('.quantity').val())
-								$('.quantity').keyup(function(){
-									$quantity=$(this).val()
-									console.log($quantity)
-									$(this).parent().siblings('.amount').html($quantity*$(this).parent().siblings('.price').html())
-								})
-								$quantity=$(this).val()
-								$(this).parent().siblings('.amount').html($quantity*$(this).parent().siblings('.price').html())
-							})
-
-							$(".delete").click(function() {
-								$(this).parent().parent('.tableRow').remove();
-							});
-					
-						})
-						$('#tableSelect').change(function(){
-							$('.panel-body').html($('#tableSelect').val())
-						})
-					})
-				</script>	
 			</div>
 		</div>
 	</form>
 	</div>
 	</div>
 </div>
+<script>
+if ( window.history.replaceState ) {
+  window.history.replaceState( null, null, window.location.href );
+}
+</script>

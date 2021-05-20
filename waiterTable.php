@@ -14,12 +14,21 @@
 </style>
 
 <div class="container">
-
-    <?php
-        $myfunction->getTable();
-    ?>
+    <div class="row">
+        <div class="col">
+            <?php
+                '<div class="card mr-4">
+                    '.$myfunction->getTable().'
+                </div>'
+            ?>
+        </div>
+    </div>
 </div>
-
+<script>
+if ( window.history.replaceState ) {
+  window.history.replaceState( null, null, window.location.href );
+}
+</script>
 
 <!-- <div class="container">
     <div class="row mt-5 ">

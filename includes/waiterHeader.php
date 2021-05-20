@@ -26,7 +26,8 @@
     <!-- Page Wrapper -->
     <div id="wrapper">
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <div class="panel">
+        <ul class="navbar-nav sidebar accordion" id="accordionSidebar">
             <!-- Sidebar - Brand and logo -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="adminDash.php">
                 <div class="sidebar-brand-icon rotate-n-15"></div>
@@ -53,6 +54,8 @@
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
         </ul>
+    
+        </div>
         <!-- End of Sidebar -->
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -95,6 +98,7 @@
                         </li>
 
                     </ul>
+                   
                     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog" role="document">

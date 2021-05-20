@@ -169,6 +169,131 @@ class functions{
         }
     }
 
+    
+    //function to get the list of table and adding it to waiter table
+    public function getTable(){
+        $connection =$this->openConnection(); 
+        $statement=$connection->prepare("SELECT * FROM table_data ORDER BY table_name ASC ");
+        $statement->execute();
+        $table_result = $statement->fetchAll();
+       
+        foreach($table_result as $table){
+            ?>
+            <div class="col">
+                    <div class="card mr-4">
+                        <div class="card-header bg-primary">
+                        <span class="text-white text-center"><?php echo $table["table_status"]?></span>
+                        </div>
+                        <div class="position-relative">
+                            <img class="img-fluid" src="img/table.png" alt="">
+                            <div class="centered text-white h5"><?php echo $table["table_name"]?></div>
+                        </div>
+                        <div class="card-footer bg-primary">
+                            <span class="">
+                                <a href="addOrder.php?id=<?php echo $table['table_name']?>"><button type="button" class="btn btn-light">Add Order</button></a>
+                                <a href="seeOrder.php"><button type="button" class="btn btn-light">Show Order Details</button></a>
+                            </span>
+                        </div>
+                    </div>
+                </div>;
+              <?php  
+        } 
+    }
+
+    
+    //function to get all product which will be use for dropdown in adding order
+    public function getTableName(){
+        $connection =$this->openConnection(); 
+        $statement=$connection->prepare("SELECT table_name FROM table_data ORDER BY table_name ASC ");
+        $statement->execute();
+        $table = $statement->fetchAll();
+        foreach($table as $table_name){
+            echo '<option value="'.$table_name["table_name"].'">'.$table_name["table_name"].'</option>';
+        } 
+    }   
+
+    //function to add order which is to be submitted to the kitchen
+    public function addOrder(){
+        if(isset($_POST['addOrder'])){
+            $order= $_POST['menu'];  
+            $qty= $_POST['qty'];
+            $status = "pending";
+            $price= $_POST['price'];
+            $table= $_POST['tableNo'];
+            $connection =$this->openConnection();
+            $statement=$connection->prepare("INSERT INTO  order_item_table(table_name,product_name,product_quantity,product_price,order_status) VALUES('$table','$order','$qty','$price','$status')");
+            $statement->execute();
+        }
+    }  
+
+    //function to delete a specific ordered product
+    // public function deleteOrderedProduct(){
+    //     if(isset($_POST['deleteOrderedProduct'])){
+    //         $prod_id= $_POST['prod_id'];    
+    //         $connection =$this->openConnection(); 
+    //         $statement=$connection->prepare("DELETE FROM order_item_table WHERE order_item_id=$prod_id");
+    //         $statement->execute();
+    //     }
+    // }
+
+
+    //function to append order in our order table
+    public function appendOrder(){
+        $connection =$this->openConnection(); 
+        $statement=$connection->prepare("SELECT * FROM order_item_table ORDER BY table_name");
+        $statement->execute();
+        $order = $statement->fetchAll();
+
+        $i = 1;
+        foreach($order as $order_list){
+        ?>
+            <tr>
+                <td><?php echo $i++?></td>
+                <td><?php echo $order_list["product_name"]?></td>
+                <td><?php echo $order_list["product_quantity"]?></td>
+                <td><?php echo $order_list["product_price"]?></td>
+                <td><?php echo $order_list["product_quantity"]*$order_list["product_price"]?></td>
+                <td>
+                        <button type="button" name="deleteOrderedProduct" class="btn btn-danger text-white btn-circle">X</button>
+                </td>
+            </tr>
+        <?php
+        }  
+    }
+
+    //function to show order of a specific table
+    public function showOrder(){
+        $connection =$this->openConnection(); 
+        $statement=$connection->prepare("SELECT * FROM order_item_table ORDER BY table_name");
+        $statement->execute();
+        $order = $statement->fetchAll();
+
+        $i = 1;
+        foreach($order as $order_list){
+            echo '<tr class="text-right">
+                <td>'.$i++.'</td>
+                <td>'.$order_list["product_name"].'</td>
+                <td>'.$order_list["product_quantity"].'</td>
+                <td>'.$order_list["product_price"].'</td>
+                <td>'.$order_list["product_quantity"]*$order_list["product_price"].'</td>
+                <td>'.$order_list["order_status"].'</td>
+                <td>
+                    <form action="" method="POST">
+                        <div class="row">
+                            <button type="submit" name="deleteOrderedProduct" class="btn btn-success mr-3 ml-2 text-white"> Deliver
+                                <input type="hidden" name="prod_id" value="'.$order_list["order_item_id"].'">
+                            </button>
+                            <button type="submit" name="deleteOrderedProduct" class="btn btn-danger text-white"> Cancel
+                                <input type="hidden" name="prod_id" value="'.$order_list["order_item_id"].'">
+                            </button>
+                        </div>
+                    </form>
+                </td>
+            </tr>';
+        }  
+    }
+
+
     //function to add order which is to be submitted to the kitchen
     // public function addOrder(){
     //     if(isset($_POST['addOrder'])){
@@ -187,52 +312,21 @@ class functions{
     //         $statement=$connection->prepare("INSERT INTO  order_item_table (table_name,product_name,product_quantity,product_price,order_status) VALUES('$table',$order','$qty','$price','$status')");
     //         $statement->execute();
     //     }
-    // }  
+    // } 
 
-    //function to delete a specific ordered product
-    public function deleteOrderedProduct(){
-        if(isset($_POST['deleteOrderedProduct'])){
-            $prod_id= $_POST['prod_id'];    
-            $connection =$this->openConnection(); 
-            $statement=$connection->prepare("DELETE FROM order_item_table WHERE order_item_id=$prod_id");
-            $statement->execute();
-        }
-    }
+    // public function addOrder(){
+    //     if(isset($_POST['addOrder'])){
+    //         $order= $_POST['menu'];  
+    //         $qty= $_POST['qty'];
+    //         $price= $prod_price['price'];
+    //         $table= $_POST['tableName'];
+    //         $status = "pending";
+    //         echo '<script> alert($tableName)</script>';
 
-    //function to get the list of table and adding it to waiter table
-    public function getTable(){
-        $connection =$this->openConnection(); 
-        $statement=$connection->prepare("SELECT * FROM table_data ORDER BY table_name ASC ");
-        $statement->execute();
-        $table_result = $statement->fetchAll();
-       
-        foreach($table_result as $table){
-            echo'<div class="col">
-                    <div class="card mr-4">
-                        <div class="card-header bg-primary">
-                        <span class="text-white text-center">'.$table["table_status"].'</span>
-                        </div>
-                        <div class="position-relative">
-                            <img class="img-fluid" src="img/table.png" alt="">
-                            <div class="centered text-white h5">'.$table["table_name"].'</div>
-                        </div>
-                        <div class="card-footer bg-primary">
-                            <a href="addOrder.php"><button type="button" class="btn btn-light w-100">Add Order</button></a>
-                        </div>
-                    </div>
-                </div>';
-        } 
-    }
-
-    //function to get all product which will be use for dropdown in adding order
-    public function getTableName(){
-        $connection =$this->openConnection(); 
-        $statement=$connection->prepare("SELECT table_name FROM table_data ORDER BY table_name ASC ");
-        $statement->execute();
-        $table = $statement->fetchAll();
-        foreach($table as $table_name){
-            echo '<option value="'.$table_name["table_name"].'">'.$table_name["table_name"].'</option>';
-        } 
-    }
+    //         $connection =$this->openConnection();
+    //         $statement=$connection->prepare("INSERT INTO order_item_table(table_name,product_name,product_quantity,product_price,order_status) VALUES('$table',$order','$qty','$price','$status')");
+    //         $statement->execute();
+    //     }
+    // }
 }
 ?>
