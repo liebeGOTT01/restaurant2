@@ -210,7 +210,7 @@ class functions{
         $table_result = $statement->fetchAll();
         foreach($table_result as $table){
             echo'<div class="col">
-                    <div class="card mr-4">
+                    <div class="card mr-4 mb-3">
                         <div class="card-header bg-primary">
                         <span class="text-white text-center">'.$table["table_status"].'</span>
                         </div>

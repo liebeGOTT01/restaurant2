@@ -10141,8 +10141,8 @@ a:focus {
 
 .sidebar .nav-item .nav-link .img-profile,
 .topbar .nav-item .nav-link .img-profile {
-  height: 2rem;
-  width: 2rem;
+  height: 5vh;
+  width: 5vw;
 }
 
 .topbar {
@@ -10233,7 +10233,7 @@ a:focus {
 }
 
 .topbar .dropdown-list .dropdown-item .dropdown-list-image img {
-  height: 2.5rem;
+  /* height: 2.5rem;/ */
   width: 2.5rem;
 }
 
@@ -11319,7 +11319,8 @@ body.sidebar-toggled footer.sticky-footer {
     background-clip: padding-box;
     box-shadow: 10px 10px 10px  rgba(46, 54, 68, 0.03);
     backdrop-filter: blur(40px);
-    width: 90%;
+    /* width: 80%; */
+    margin:3%;
   }
 
   
