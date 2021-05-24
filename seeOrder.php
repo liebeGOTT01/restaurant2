@@ -1,6 +1,9 @@
 <?php  
     include('includes/function.php');
     $myfunction=new functions; 
+	$myfunction->cancelOrder();
+	$myfunction->deliverOrder();
+	
 ?>
 
 <!DOCTYPE html>
@@ -53,13 +56,54 @@
 			</thead>
 			<tbody id="tableBody">
 				<?php
-					$myfunction->showOrder();
+					$connection =$myfunction->openConnection(); 
+					$statement=$connection->prepare("SELECT * FROM order_item_table ORDER BY table_name");
+					$statement->execute();
+					$order = $statement->fetchAll();
+					$i = 1;
+					foreach($order as $order_list){
+						$orderStatus = $order_list["order_status"];
+				?>
+					<tr class="text-right">
+						<td> <?php echo $i++ ?></td>
+						<td><?php echo $order_list["product_name"] ?></td>
+						<td><?php echo $order_list["product_quantity"] ?></td>
+						<td><?php echo $order_list["product_price"] ?></td>
+						<td class="totalAmount"><?php echo $order_list["amount"] ?></td>
+						<td ><?php echo $order_list["order_status"] ?></td>
+						<td class="action">
+						<form class="form1" action="" method="POST">
+							<div class="row">
+							<?php
+								if($orderStatus=='pending'||$orderStatus=='rejected'){
+							?>
+								<button type="submit" name="deliverOrder" class="btn btn-success mr-3 ml-2 text-white deliver" disabled> Deliver
+									<input type="hidden" name="deliver_id" value="<?php echo $order_list["order_item_id"]?>">
+								</button>
+							<?php 
+							}else{
+							?>
+								<button type="submit" name="deliverOrder" class="btn btn-success mr-3 ml-2 text-white deliver"> Deliver
+									<input type="hidden" name="deliver_id" value="<?php echo $order_list["order_item_id"]?>">
+								</button>
+							<?php
+							}
+							?>
+								<button type="submit" name="cancelOrder" class="btn btn-danger text-white"> Cancel
+									<input type="hidden" name="cancel_id" value="<?php echo $order_list["order_item_id"]?>">
+								</button>
+							</div>
+						</form>
+						</td>
+					</tr>
+				<?php
+					}  	
 				?>
 			</tbody>
 			<tfoot>
 				<tr>
 					<th class="text-right" colspan="4">Total</th>
-					<th class="text-right tamount"></th>
+					<th class="text-right tamount"><?php $myfunction->getTotal(); ?></th>
 					<th></th>
 				</tr>
 			</tfoot>
@@ -67,5 +111,11 @@
 	<button class="btn btn-primary btn-sm btn-block float-right " type="button" id="pay">Pay</button>
 
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+	$(document).ready(function(){
+		
+	})
+</script>
 </body>
 </html>

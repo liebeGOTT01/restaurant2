@@ -191,3 +191,63 @@ $tableNo=$_GET['id'];
  <a href="deleteOrder.php?idP=<?php echo $order_list['order_item_id']?>">
                         <button type="button" name="deleteOrderedProduct" class="btn btn-danger text-white btn-circle">X</button>
                     </a>
+
+
+					<div class="col-6">
+	<form action="" method="POST">
+		<div class="col">
+			<label class="control-label">List of Tables</label>
+			<select name="tableOrder" id="tableSelect" class="form-control" required data-parsley-trigger="change">
+				<option value="">Select Table</option>
+				<?php
+					$myfunction->getTableName();
+				?>
+            </select>
+		</div>
+		<br>
+		<br>
+		<div class="col">
+			<div class="panel panel-default p-2">
+
+				<div class="panel-body p-3" name="tableNo"></div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<table class="table table-bordered" id="list">
+					<colgroup>
+						<col width="5%">
+						<col width="30%">
+						<col width="10%">
+						<col width="25%">
+						<col width="25%">
+						<col width="5%">
+					</colgroup>
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Menu</th>
+							<th>Quantity</th>
+							<th>Price</th>
+							<th>Amount</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody id="tbody">
+						<?php
+							$myfunction->dispOrder();
+						?>
+					</tbody>
+					<tfoot>
+						<tr>
+							<th class="text-right" colspan="4">Total</th>
+							<th class="text-right tamount"></th>
+							<th></th>
+						</tr>
+					</tfoot>
+				</table>
+				<button type="submit" class="btn btn-primary w-100">Submit to kitchen</button>
+			</div>
+		</div>
+	</form>
+	</div>

@@ -117,7 +117,30 @@
 					</thead>
 					<tbody id="tbody">
 						<?php
-							$myfunction->appendOrder();
+							$connection =$myfunction->openConnection(); 
+							$statement=$connection->prepare("SELECT * FROM order_item_table ORDER BY table_name");
+							$statement->execute();
+							$order = $statement->fetchAll();
+						
+							$i = 1;
+								foreach($order as $order_list){
+								?>
+									<tr>
+										<td><?php echo $i++?></td>
+										<td><?php echo $order_list["product_name"]?></td>
+										<td><?php echo $order_list["product_quantity"]?></td>
+										<td><?php echo $order_list["product_price"]?></td>
+										<td><?php echo $order_list["product_quantity"]*$order_list["product_price"]?></td>
+										<td>
+											<form method="POST">
+												<button type="submit" name="deleteOrderedProduct" class="btn btn-danger text-white btn-circle">X
+													<input type="hidden" name="prod_id" value="<?php echo $order_list["order_item_id"]?>">
+												</button>
+											</form>
+										</td>
+									</tr>
+								<?php
+								} 
 						?>
 					</tbody>
 					<tfoot>

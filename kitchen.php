@@ -1,7 +1,9 @@
 
 <?php
     include('includes/function.php');
-    $myfunction=new functions;        
+    $myfunction=new functions;  
+    $myfunction->confirmOrder();  
+    $myfunction->rejectOrder();    
 ?>
 
 <!DOCTYPE html>
@@ -45,7 +47,7 @@
     <div class="row">
     <?php 
       $connection = $myfunction->openConnection();
-      $statement = $connection->prepare("SELECT * FROM order_item_table");
+      $statement = $connection->prepare("SELECT * FROM order_item_table where order_status='pending'");
       $statement->execute();
       $order = $statement->fetchAll();
       $orderCount = $statement->rowCount();
@@ -74,9 +76,16 @@
             <div class="card-body col-7 sm-padding">
               <h4 class="card-title"><?php echo $newOrder['table_name'] ?></h4>
               <span><?php echo $newOrder['product_name'] ?></span> <br>
-              
               <span><?php echo $newOrder['product_quantity'] ?></span>
-              <button type="submit" class="btn btn-light w-100 bg-primary text-white position-right">Confirm Order</button>
+              <br><br>
+              <form  method="POST">
+                <button type="submit" name="confirmOrder" class="btn btn-primary text-white position-right">Confirm Order
+                  <input type="hidden" name="confirm_id" value="<?php echo $newOrder['order_item_id']?>">
+                </button>
+                <button type="submit" name="rejectOrder" class="btn btn-danger text-white position-right">Reject Order
+                  <input type="hidden" name="reject_id" value="<?php echo $newOrder['order_item_id']?>">
+                </button>
+              </form>
             </div>
           </div>
         </div>

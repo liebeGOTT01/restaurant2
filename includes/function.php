@@ -39,7 +39,6 @@ class functions{
             $user_email = $_POST['user_email'];
             $user_password = $_POST['user_password'];
             $role = $_POST['role'];
-        
             if (empty($user_email)) {
                 header("Location: ../index.php?error=User Name is Required");
             }else if (empty($user_password)) {
@@ -179,8 +178,8 @@ class functions{
        
         foreach($table_result as $table){
             ?>
-            <div class="col">
-                    <div class="card mr-4">
+            <div class="col mb-4">
+                    <div class="card" style="width:18rem;">
                         <div class="card-header bg-primary">
                         <span class="text-white text-center"><?php echo $table["table_status"]?></span>
                         </div>
@@ -190,13 +189,13 @@ class functions{
                         </div>
                         <div class="card-footer bg-primary">
                             <span class="">
-                                <a href="addOrder.php?id=<?php echo $table['table_name']?>"><button type="button" class="btn btn-light">Add Order</button></a>
-                                <a href="seeOrder.php"><button type="button" class="btn btn-light">Show Order Details</button></a>
+                                <a href="addOrder.php?id=<?php echo $table['table_name']?>"><button type="button" class="btn btn-light btn-sm">Add Order</button></a>
+                               <br> <a href="seeOrder.php"><button type="button" class="btn btn-light btn-sm">Show Order Details</button></a>
                             </span>
                         </div>
                     </div>
-                </div>;
-              <?php  
+                </div>
+            <?php  
         } 
     }
 
@@ -220,113 +219,69 @@ class functions{
             $status = "pending";
             $price= $_POST['price'];
             $table= $_POST['tableNo'];
+            $amount= $_POST['qty']*$_POST['price'];
             $connection =$this->openConnection();
-            $statement=$connection->prepare("INSERT INTO  order_item_table(table_name,product_name,product_quantity,product_price,order_status) VALUES('$table','$order','$qty','$price','$status')");
+            $statement=$connection->prepare("INSERT INTO  order_item_table(table_name,product_name,product_quantity,product_price,amount,order_status) VALUES('$table','$order','$qty','$price','$amount','$status')");
             $statement->execute();
         }
     }  
 
     //function to delete a specific ordered product
-    // public function deleteOrderedProduct(){
-    //     if(isset($_POST['deleteOrderedProduct'])){
-    //         $prod_id= $_POST['prod_id'];    
-    //         $connection =$this->openConnection(); 
-    //         $statement=$connection->prepare("DELETE FROM order_item_table WHERE order_item_id=$prod_id");
-    //         $statement->execute();
-    //     }
-    // }
-
-
-    //function to append order in our order table
-    public function appendOrder(){
-        $connection =$this->openConnection(); 
-        $statement=$connection->prepare("SELECT * FROM order_item_table ORDER BY table_name");
-        $statement->execute();
-        $order = $statement->fetchAll();
-
-        $i = 1;
-        foreach($order as $order_list){
-        ?>
-            <tr>
-                <td><?php echo $i++?></td>
-                <td><?php echo $order_list["product_name"]?></td>
-                <td><?php echo $order_list["product_quantity"]?></td>
-                <td><?php echo $order_list["product_price"]?></td>
-                <td><?php echo $order_list["product_quantity"]*$order_list["product_price"]?></td>
-                <td>
-                        <button type="button" name="deleteOrderedProduct" class="btn btn-danger text-white btn-circle">X</button>
-                </td>
-            </tr>
-        <?php
-        }  
+    public function deleteOrderedProduct(){
+        if(isset($_POST['deleteOrderedProduct'])){
+            $prod_id= $_POST['prod_id'];    
+            $connection =$this->openConnection(); 
+            $statement=$connection->prepare("DELETE FROM order_item_table WHERE order_item_id = $prod_id");
+            $statement->execute();
+        }
     }
 
-    //function to show order of a specific table
-    public function showOrder(){
-        $connection =$this->openConnection(); 
-        $statement=$connection->prepare("SELECT * FROM order_item_table ORDER BY table_name");
-        $statement->execute();
-        $order = $statement->fetchAll();
+    //function to delete a specific ordered product
+    public function cancelOrder(){
+        if(isset($_POST['cancelOrder'])){
+            $cancel_id= $_POST['cancel_id'];    
+            $connection =$this->openConnection(); 
+            $statement=$connection->prepare("DELETE FROM order_item_table WHERE order_item_id=$cancel_id");
+            $statement->execute();
+        }
+    } 
 
-        $i = 1;
-        foreach($order as $order_list){
-            echo '<tr class="text-right">
-                <td>'.$i++.'</td>
-                <td>'.$order_list["product_name"].'</td>
-                <td>'.$order_list["product_quantity"].'</td>
-                <td>'.$order_list["product_price"].'</td>
-                <td>'.$order_list["product_quantity"]*$order_list["product_price"].'</td>
-                <td>'.$order_list["order_status"].'</td>
-                <td>
-                    <form action="" method="POST">
-                        <div class="row">
-                            <button type="submit" name="deleteOrderedProduct" class="btn btn-success mr-3 ml-2 text-white"> Deliver
-                                <input type="hidden" name="prod_id" value="'.$order_list["order_item_id"].'">
-                            </button>
-                            <button type="submit" name="deleteOrderedProduct" class="btn btn-danger text-white"> Cancel
-                                <input type="hidden" name="prod_id" value="'.$order_list["order_item_id"].'">
-                            </button>
-                        </div>
-                    </form>
-                </td>
-            </tr>';
-        }  
+    //function to confirm an order made by the kitchen
+    public function confirmOrder(){
+        if(isset($_POST['confirmOrder'])){
+            $confirm_id= $_POST['confirm_id'];  
+            $connection =$this->openConnection(); 
+            $statement=$connection->prepare("UPDATE order_item_table SET order_status='confirmed' WHERE order_item_id=$confirm_id");
+            $statement->execute();
+        }
     }
 
+    //function to deliver a confirmed order made by the waiter
+    public function deliverOrder(){
+        if(isset($_POST['deliverOrder'])){
+            $deliver_id= $_POST['deliver_id'];  
+            $connection =$this->openConnection(); 
+            $statement=$connection->prepare("UPDATE order_item_table SET order_status='delivered' WHERE order_item_id=$deliver_id");
+            $statement->execute();
+        }
+    }
+    //function to reject an order made by the kitchen
+    public function rejectOrder(){
+        if(isset($_POST['rejectOrder'])){
+            $reject_id= $_POST['reject_id'];  
+            $connection =$this->openConnection(); 
+            $statement=$connection->prepare("UPDATE order_item_table SET order_status='rejected' WHERE order_item_id=$reject_id");
+            $statement->execute();
+        }
+    }
 
-    //function to add order which is to be submitted to the kitchen
-    // public function addOrder(){
-    //     if(isset($_POST['addOrder'])){
-    //         $order= $_POST['productOrder'];  
-    //         $qty= $_POST['qty'];
-    //         $status = "pending";
-    //         $connection =$this->openConnection();
-
-    //         $getPrice=$connection->prepare("SELECT product_price FROM product_table  WHERE product_name='$order'");
-    //         $getPrice->execute();
-    //         $prod_price=$getPrice->fetch();
-    //         $price= $prod_price['product_price'];
-
-    //         $table= $_POST['tableNo'];
-
-    //         $statement=$connection->prepare("INSERT INTO  order_item_table (table_name,product_name,product_quantity,product_price,order_status) VALUES('$table',$order','$qty','$price','$status')");
-    //         $statement->execute();
-    //     }
-    // } 
-
-    // public function addOrder(){
-    //     if(isset($_POST['addOrder'])){
-    //         $order= $_POST['menu'];  
-    //         $qty= $_POST['qty'];
-    //         $price= $prod_price['price'];
-    //         $table= $_POST['tableName'];
-    //         $status = "pending";
-    //         echo '<script> alert($tableName)</script>';
-
-    //         $connection =$this->openConnection();
-    //         $statement=$connection->prepare("INSERT INTO order_item_table(table_name,product_name,product_quantity,product_price,order_status) VALUES('$table',$order','$qty','$price','$status')");
-    //         $statement->execute();
-    //     }
-    // }
+    //function to get the total amount
+    public function getTotal(){
+        $connection =$this->openConnection(); 
+        $statement=$connection->prepare("select sum(amount) as totalAmount from  order_item_table where order_status='delivered'");
+        $statement->execute();
+        $totalAmount = $statement->fetch();
+        echo $totalAmount['totalAmount'];
+    }
 }
 ?>
