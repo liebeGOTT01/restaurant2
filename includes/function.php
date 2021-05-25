@@ -280,8 +280,28 @@ class functions{
         $connection =$this->openConnection(); 
         $statement=$connection->prepare("select sum(amount) as totalAmount from  order_item_table where order_status='delivered'");
         $statement->execute();
+
+        $table_result = $statement->fetchAll();
+        foreach($table_result as $table){
+            echo'<div class="col">
+                    <div class="card mr-4 mb-3">
+                        <div class="card-header bg-primary">
+                        <span class="text-white text-center">'.$table["table_status"].'</span>
+                        </div>
+                        <div class="position-relative">
+                            <img class="img-fluid" src="img/table.png" alt="">
+                            <div class="centered text-white h5">'.$table["table_name"].'</div>
+                        </div>
+                        <div class="card-footer bg-primary">
+                            <a href="addOrder.php"><button type="button" class="btn btn-light w-100">Add Order</button></a>
+                        </div>
+                    </div>
+                </div>';
+        } 
+
         $totalAmount = $statement->fetch();
         echo $totalAmount['totalAmount'];
+
     }
 }
 ?>

@@ -71,28 +71,38 @@ $myfunction->updateProduct();
 							$productCount = $statement->rowCount();
 							foreach($product as $newProduct) {
 						?>
-						
-							<div class="card mt-5" style="width: 18rem;">
-								<img class="card-img-top" src="<?php echo $newProduct['product_image'] ?>" alt="Card image cap">
-								<div class="card-body">
-									<h5 class="card-title"><?php echo $newProduct['product_name'] ?></h5>
-									<p class="card-text">
-										<?php echo $newProduct['category_name'] ?>
-										<?php echo $newProduct['product_price'] ?>
-									</p>
-								</div>
-								<div class="card-footer">
-									<span class="row float-right pt-2 pl-2 pr-2 details">
-										<form action="" method="POST">
-											<button  type="button"class="btn btn-info editBtn" data-toggle="modal" data-target="#editProd">Edit</button>
-											<!-- <a><i class="fa fa-edit text-warning" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="Edit Product" name="editProd"></i></a> &nbsp; -->
-											<input type="hidden" name="prod_id" value="<?php echo $newProduct['product_id']?>">
-											<!-- <a><i class="fa fa-trash text-danger" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="Delete Product" name="deleteProd"></i></a> -->
-											<button type="submit" class="btn btn-danger" name="deleteProd">Delete</button>
-										</form>
-									</span>
+
+                    <div class="row">
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+									<div class="card mt-5" style="width: 16rem;">
+										<div class="card-body">
+											<img class="card-img-top" src="<?php echo $newProduct['product_image'] ?>" alt="Card image cap">
+											<div class="card-body">
+												<h5 class="card-title"><?php echo $newProduct['product_name'] ?></h5>
+												<p class="card-text">
+													<?php echo $newProduct['category_name'] ?>
+													<?php echo $newProduct['product_price'] ?>
+												</p>
+											</div>
+											<div class="card-footer">
+												<span class="row float-right pt-2 pl-2 pr-2 details">
+													<form action="" method="POST">
+														<button  type="button"class="btn btn-info editBtn" data-toggle="modal" data-target="#editProd">Edit</button>
+														<!-- <a><i class="fa fa-edit text-warning" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="Edit Product" name="editProd"></i></a> &nbsp; -->
+														<input type="hidden" name="prod_id" value="<?php echo $newProduct['product_id']?>">
+														<!-- <a><i class="fa fa-trash text-danger" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="Delete Product" name="deleteProd"></i></a> -->
+														<button type="submit" class="btn btn-danger" name="deleteProd">Delete</button>
+													</form>
+												</span>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
+
+
+
 							<!-- Modal to edit product -->
 							<div class="modal fade editModal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" id="editProd">
 								<div class="modal-dialog" role="document">

@@ -8,11 +8,10 @@ $myfunction->deleteCat();
 
 ?>
 
-<div class="container-fluid pt-5">
-	<div class="card" id="card">
-		<div class="car-header p-3 d-flex justify-content-center">
-			<h4>Restaurant Category Menu</h4>	
-		</div>
+
+	<!-- <div class="card" id="card"> -->
+	
+		<h1 class="h3 mb-4 text-gray-800">Restaurant Category Menu</h1>	
 		<div class="card-body">
 			<div class="col-lg-12">
 				<div class="row">
@@ -20,7 +19,7 @@ $myfunction->deleteCat();
 					<div class="col-md-4">
 					<form method="POST" id="manage-category" >
 						<div class="card">
-							<div class="card-header">
+							<div class="card-header text-xs font-weight-bold text-primary text-uppercase">
 									Menu Form
 							</div>
 							<div class="card-body">
@@ -44,7 +43,7 @@ $myfunction->deleteCat();
 					<!-- Table Panel -->
 					<div class="col-md-8">
 						<div class="card">
-							<div class="card-header">
+							<div class="card-header text-xs font-weight-bold text-primary text-uppercase">
 								Menu Category
 							</div>
 							<div class="card-body">
@@ -52,8 +51,8 @@ $myfunction->deleteCat();
 									<thead>
 										<tr>
 											<th class="text-center">#</th>
-											<th class="text-center">Name</th>
-											<th class="text-center">Action</th>
+											<th class="text-center">NAME</th>
+											<th class="text-center">ACTION</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -117,8 +116,7 @@ $myfunction->deleteCat();
 				</div>
 			</div>	
 		</div>
-	</div>
-</div>
+	<!-- </div> -->
 
 <style>
 	
