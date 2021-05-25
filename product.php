@@ -9,7 +9,7 @@ $myfunction->updateProduct();
 
 <div class="container">
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Product Management</h1>
+                    <h1 class="h3 mb-4 text-gray-800 mt-5">Product Management</h1>
 					<div class="col" align="right">
 						<button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter" name="add_product" id="add_product">
 							<i class="fas fa-plus"></i>
@@ -63,6 +63,8 @@ $myfunction->updateProduct();
 					<!-- end of Modal to add new product-->
 
 					<!-- product list -->
+				<div class="container">
+                    	<div class="row">
 						<?php 
 							$connection = $myfunction->openConnection();
 							$statement = $connection->prepare("SELECT * FROM product_table");
@@ -72,35 +74,33 @@ $myfunction->updateProduct();
 							foreach($product as $newProduct) {
 						?>
 
-                    <div class="row">
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-									<div class="card mt-5" style="width: 16rem;">
-										<div class="card-body">
-											<img class="card-img-top" src="<?php echo $newProduct['product_image'] ?>" alt="Card image cap">
-											<div class="card-body">
-												<h5 class="card-title"><?php echo $newProduct['product_name'] ?></h5>
-												<p class="card-text">
-													<?php echo $newProduct['category_name'] ?>
-													<?php echo $newProduct['product_price'] ?>
-												</p>
-											</div>
-											<div class="card-footer">
-												<span class="row float-right pt-2 pl-2 pr-2 details">
-													<form action="" method="POST">
-														<button  type="button"class="btn btn-info editBtn" data-toggle="modal" data-target="#editProd">Edit</button>
-														<!-- <a><i class="fa fa-edit text-warning" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="Edit Product" name="editProd"></i></a> &nbsp; -->
-														<input type="hidden" name="prod_id" value="<?php echo $newProduct['product_id']?>">
-														<!-- <a><i class="fa fa-trash text-danger" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="Delete Product" name="deleteProd"></i></a> -->
-														<button type="submit" class="btn btn-danger" name="deleteProd">Delete</button>
-													</form>
-												</span>
-											</div>
-										</div>
+
+						<div class="card mb-4 mr-4 mt-5" style="width: 18rem;">
+							<img class="card-img-top" src="<?php echo $newProduct['product_image'] ?>" alt="Card image cap">
+							<div class="card-body">
+									<h5 class="card-title"><?php echo $newProduct['product_name'] ?></h5>
+									<p class="card-text">
+										<?php echo $newProduct['category_name'] ?>
+										<?php echo $newProduct['product_price'] ?>
+									</p>
+								
+								<div class="card-footer">
+									<div class="category-card1">
+									<span class="row float-right pt-2 pl-2 pr-2 details">
+											<form action="" method="POST">
+												<button  type="button"class="btn btn-info editBtn" data-toggle="modal" data-target="#editProd">Edit</button>
+													<!-- <a><i class="fa fa-edit text-warning" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="Edit Product" name="editProd"></i></a> &nbsp; -->
+													<input type="hidden" name="prod_id" value="<?php echo $newProduct['product_id']?>">
+													<!-- <a><i class="fa fa-trash text-danger" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="Delete Product" name="deleteProd"></i></a> -->
+													<button type="submit" class="btn btn-danger" name="deleteProd">Delete</button>
+											</form>
+										</span>
 									</div>
 								</div>
 							</div>
-
+						</div>
+					
+					
 
 
 							<!-- Modal to edit product -->
@@ -151,6 +151,8 @@ $myfunction->updateProduct();
 						}
 						?>
 					</div>
+					</div>
+				</div>
 					<script>
 if ( window.history.replaceState ) {
   window.history.replaceState( null, null, window.location.href );

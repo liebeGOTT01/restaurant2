@@ -43,7 +43,7 @@
 
 <body>
   <div class="container align-items-center">
-    <h1 class="text-center">KITCHEN ORDER CONFIRMATION</h1>
+    <h1 class="text-center mt-5">KITCHEN ORDER CONFIRMATION</h1>
     <div class="row">
     <?php 
       $connection = $myfunction->openConnection();

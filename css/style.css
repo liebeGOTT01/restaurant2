@@ -64,16 +64,19 @@ body {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #ffffff;
+  color: #0026ff;
   text-align: left;
-  /* background-color: rgb(63, 60, 60); */
-  background-image: url('https://image.freepik.com/free-vector/abstract-classic-blue-background_23-2148434269.jpg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-attachment: fixed;
+  
+  /* position:relative; */
+  background-color:#1a8aa036;
+  /* padding: 20px; */
+  color:#008eb5;
   background-size: cover;
-  /* backdrop-filter: blur(5px); */
-
+  /* border-radius: 5px; */
+  /* border: solid 2px transparent; */
+  /* background-clip: padding-box; */
+  /* box-shadow: 10px 10px 10px  rgba(46, 54, 68, 0.03); */
+  backdrop-filter: blur(40px);
 }
 
 
@@ -4466,11 +4469,11 @@ input[type="button"].btn-block {
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
+  border-radius: 0.3rem;
   background-clip: border-box;
   border: 1px solid #e3e6f0;
-  border-radius: 0.35rem;
-  background-color: rgba(255, 251, 251, 0.288);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.288);
+  border: 1px solid rgba(27, 26, 26, 0.397);
   backdrop-filter: blur(8px);
 }
 
@@ -4540,9 +4543,60 @@ input[type="button"].btn-block {
 }
 
 .card-footer {
-  border-top: 1px solid #e3e6f0;
+  border-top: 1px solid #32343a8e;
 } 
 
+.category-card{
+  background-color: #81afc4bd;
+  box-shadow: 
+    12px 12px 16px 0 rgba(0, 0, 0, 0.25),
+    -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
+  border-radius: 50px;
+  display: flex;
+  height: 40px;
+  justify-content: center;
+  margin-top: 3%;
+  margin-bottom: -3%;
+  margin-left: -60%;
+  width: 150px;
+}
+
+.category-card1{
+  background-color: #81afc4bd;
+  box-shadow: 
+    12px 12px 16px 0 rgba(0, 0, 0, 0.25),
+    -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
+  border-radius: 50px;
+  display: flex;
+  height: 55px;
+  justify-content: center;
+  margin-top: 3%;
+  margin-bottom: -5%;
+  float:right;
+  margin-right: -12%;
+  width: 200px;
+}
+
+.tab-card{
+  background-color: #81afc4bd;
+  box-shadow: 
+    12px 12px 16px 0 rgba(0, 0, 0, 0.25),
+    -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
+  border-radius: 50px;
+  height: 55px;
+  margin-top: 5%;
+  margin-bottom: -8%;
+  float:right;
+  margin-right: -23%;
+  width: 260px;
+  padding:3%;
+}
+
+.card1{
+  box-shadow: 
+  12px 12px 16px 0 rgba(0, 0, 0, 0.25),
+  -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
+}
 .card-footer:last-child {
   border-radius: 0 0 calc(0.35rem - 1px) calc(0.35rem - 1px);
 }
@@ -6542,6 +6596,7 @@ button.bg-dark:focus {
 
 .border-dark {
   border-color: #5a5c69 !important;
+
 }
 
 .border-white {
@@ -10019,7 +10074,7 @@ a:focus {
 }
 
 .border-left-primary {
-  border-left: 0.35rem solid #3d64db !important;
+  border-left: 0.45rem solid #3d64db !important;
 }
 
 .border-bottom-primary {
@@ -10141,7 +10196,7 @@ a:focus {
 
 .sidebar .nav-item .nav-link .img-profile,
 .topbar .nav-item .nav-link .img-profile {
-  height: 5vh;
+  /* height: 5vh; */
   width: 5vw;
 }
 
@@ -11309,19 +11364,34 @@ body.sidebar-toggled footer.sticky-footer {
     /* background-color:rgba(150, 50, 150, 0.425); */
   }
 
-  .container-fluid{
-    position:relative;
-    background-color: rgba(255, 255, 255,0.2);
+  /* .container-fluid{ */
+    /* position:relative;
+    background-color:#00b8dd36;
     padding: 20px;
     color:#008eb5;
-    border-radius: 5px;
-    border: solid 2px transparent;
+    background-size: cover; */
+    /* border-radius: 5px; */
+    /* border: solid 2px transparent;
     background-clip: padding-box;
     box-shadow: 10px 10px 10px  rgba(46, 54, 68, 0.03);
-    backdrop-filter: blur(40px);
+    backdrop-filter: blur(40px); */
     /* width: 80%; */
-    margin:3%;
-  }
+    /* margin:3%; */
+  /* } */
 
+  .glass-button{
+   
+    align-items: center;
+    background: linear-gradient(-45deg, rgba(13, 36, 165, 0.22), rgba(110, 103, 103, 0.25));
+    border-radius: 20px;
+    box-shadow: 
+      12px 12px 16px 0 rgba(0, 0, 0, 0.25),
+      -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
+      color:#0026ff
+  }
   
-  
+
+  .glass-button:hover {
+    background-color: rgba(255,255,255,0.2);
+    color: black;
+  }

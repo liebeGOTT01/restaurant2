@@ -12,13 +12,13 @@
   transform: translate(-50%, -50%);
 }
 </style>
-
 <div class="container">
-    <div class="row ">
-        <?php
-            $myfunction->getTable();
-        ?>
-    </div>
+    <h1 class="h3 mb-4 text-gray-800 mt-5">Customer Table</h1>
+        <div class="row">
+            <?php
+                $myfunction->getTable();
+            ?>
+        </div>
 </div>
 
 <script>

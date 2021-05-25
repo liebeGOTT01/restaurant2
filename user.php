@@ -5,7 +5,7 @@ include('includes/header.php');
 ?>
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">User Management</h1>
+                    <h1 class="h3 mb-4 text-gray-800 mt-5">User Management</h1>
 
                     <!-- DataTales Example -->
                     <span id="message"></span>

@@ -16,16 +16,15 @@
 
 <body>
 	<div class="card" style="width: 8rem;">
-			  <img src="./img/admin.jpg" 
-			       class="card-img-top w-25" 
-			       alt="admin image">
-			  <div class="card-body text-center">
+		<img src="./img/admin.jpg" class="card-img-top w-25" alt="admin image">
+			<div class="card-body text-center">
 			    <h5 class="card-title">
-			    	<?=$_SESSION['user_email']?>
+			    		<?=$_SESSION['user_email']?>
 			    </h5>
-			    <a href="logout.php" class="btn btn-dark">Logout</a>
-			  </div>
+				<a href="logout.php" class="btn btn-dark">Logout</a>
 			</div>
+	</div>
+	
 			<div class="p-3">
 				<?php include 'php/members.php';
                  if (mysqli_num_rows($res) > 0) {?>
