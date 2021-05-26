@@ -25,18 +25,18 @@ $myfunction->deleteCat();
 							<div class="card-body">
 								<input type="hidden" name="id">
 								<div class="form-group">
-									<label class="control-label">Category</label>
+									<label class="control-label text-uppercase font-weight-bold">Category</label>
 									<input type="text" class="form-control" name="category">
 								</div>
 							</div>
-							<div class="card-footer">
+							
 								<div class="row d-flex justify-content-center">
 									<div class="category-card">
 										<button type="submit" style="font-size:25px;color:#0080FF" class="btn fa fa-hand-o-up" name="enterCat" value="save"></button>
 										<i style="font-size:25px;color:#CCCC00;" class="btn fa fa-times" type="button" onclick="$('#manage-category').get(0).reset()"></i>
 									</div>
 								</div>
-							</div>
+							
 						</div>
 					</form>
 					</div>

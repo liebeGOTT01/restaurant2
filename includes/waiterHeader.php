@@ -54,7 +54,7 @@
                                 </li>
 
                 <!-- Sidebar - Brand and logo -->
-                        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="adminDash.php">
+                        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="waiterDash.php">
                             <div class="sidebar-brand-icon rotate-n-15"></div>
                                 <i class="fas fa-laugh-wink"></i>
                             <div class="sidebar-brand-text mx-3">Waiter</div>

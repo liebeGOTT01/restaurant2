@@ -1,6 +1,6 @@
 <?php
 //product.php
-include('includes/header.php');
+include('includes/Adheader.php');
                 
 ?>
 

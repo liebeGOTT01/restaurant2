@@ -56,7 +56,7 @@
 								<span class="prod_price" name="price">
 									<div class="row">
 										<div class="col-sm">
-											<h5 style="font-size:1.1rem;color:#0A69F3;" class="card-title prod_name text-capitalize" name="menu">
+											<h5 style="font-size:0.95rem;color:#0A69F3;" class="card-title prod_name text-uppercase font-weight-bold" name="menu">
 												<?php echo $newProduct['product_name'] ?>
 											</h5>
 												<input type="hidden" name="menu" value="<?php echo $newProduct['product_name'] ?>">
@@ -67,7 +67,7 @@
 											<input type="hidden" name="tableNo" value="<?php echo $_GET['id']?>">
 										</div>
 									</div>
-										<h7 class="text-capitalize font-weight-bold text-primary"><?php echo $newProduct['category_name'] ?></h7>
+										<h7 class="text-capitalize font-weight-bold" style="color:#1F45FC"><?php echo $newProduct['category_name'] ?></h7>
 								</span>
 							</p>
 							<div class="input-group">
