@@ -33,7 +33,7 @@
 	<a href="waiterTable.php">
         <button class="btn float-right mt-4 mb-3 glass-button">Back To Table List</button>
     </a>
-	<table class="table table-bordered" id="list">
+	<table class="table table-bordered table-dark table-striped text-white" id="list">
 			<colgroup>
 				<col width="5%">
 				<col width="23%">
