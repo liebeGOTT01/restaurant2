@@ -31,9 +31,9 @@
 <body>
 <div class="container">
 	<a href="waiterTable.php">
-        <button class="btn btn-primary float-right">Back To Table List</button>
+        <button class="btn float-right mt-4 mb-3 glass-button">Back To Table List</button>
     </a>
-	<table class="table table-bordered bg-warning" id="list">
+	<table class="table table-bordered table-dark table-striped text-white" id="list">
 			<colgroup>
 				<col width="5%">
 				<col width="23%">
@@ -43,7 +43,7 @@
 				<col width="15%">
 				<col width="17%">
 			</colgroup>
-			<thead>
+			<thead style="font-size:1.2rem;">
 				<tr>
 					<th class="text-center">#</th>
 					<th class="text-right">Product</th>
@@ -64,12 +64,12 @@
 					foreach($order as $order_list){
 						$orderStatus = $order_list["order_status"];
 				?>
-					<tr class="text-right">
+					<tr class="text-right text-uppercase" style="font-size:0.95rem;">
 						<td> <?php echo $i++ ?></td>
 						<td><?php echo $order_list["product_name"] ?></td>
 						<td><?php echo $order_list["product_quantity"] ?></td>
-						<td><?php echo $order_list["product_price"] ?></td>
-						<td class="totalAmount"><?php echo $order_list["amount"] ?></td>
+						<td><b>₱</b><?php echo $order_list["product_price"] ?></td>
+						<td class="totalAmount"><b>₱</b><?php echo $order_list["amount"]?></td>
 						<td ><?php echo $order_list["order_status"] ?></td>
 						<td class="action">
 						<form class="form1" action="" method="POST">
@@ -108,7 +108,8 @@
 				</tr>
 			</tfoot>
 	</table>
-	<button class="btn btn-primary btn-sm btn-block float-right " type="button" id="pay">Pay</button>
+	<button class="btn btn-primary btn-m btn-block float-right mb-4" type="button" id="pay">Pay</button>
+
 
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

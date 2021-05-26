@@ -64,16 +64,19 @@ body {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #ffffff;
+  color: #0026ff;
   text-align: left;
-  /* background-color: rgb(63, 60, 60); */
-  background-image: url('https://image.freepik.com/free-vector/abstract-classic-blue-background_23-2148434269.jpg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-attachment: fixed;
+  
+  /* position:relative; */
+  background-color:#ffffff;
+  /* padding: 20px; */
+  color:#008eb5;
   background-size: cover;
-  /* backdrop-filter: blur(5px); */
-
+  /* border-radius: 5px; */
+  /* border: solid 2px transparent; */
+  /* background-clip: padding-box; */
+  /* box-shadow: 10px 10px 10px  rgba(46, 54, 68, 0.03); */
+  backdrop-filter: blur(40px);
 }
 
 
@@ -4466,12 +4469,14 @@ input[type="button"].btn-block {
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
+  border-radius: 0.3rem;
   background-clip: border-box;
   border: 1px solid #e3e6f0;
-  border-radius: 0.35rem;
-  background-color: rgba(255, 251, 251, 0.288);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(8px);
+   background-color: rgba(35, 149, 177, 0.295) ; 
+  /* background: #088f8f33;
+/* background: linear-gradient(90deg, rgba(128, 128, 138, 0.212) -1%, rgba(16, 88, 147, 0.301) 51%, rgba(43, 128, 91, 0.116) 100%); */
+  border: 1px solid rgba(27, 26, 26, 0.397);
+  /* backdrop-filter: blur(4px); */
 }
 
 .card > hr {
@@ -4540,9 +4545,57 @@ input[type="button"].btn-block {
 }
 
 .card-footer {
-  border-top: 1px solid #e3e6f0;
+  border-top: 1px solid #32343a8e;
 } 
 
+.category-card{
+  background-color: #81afc4bd;
+  box-shadow: 
+    12px 12px 16px 0 rgba(0, 0, 0, 0.25),
+    -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
+  border-radius: 50px;
+  display: flex;
+  height: 40px;
+  justify-content: center;
+  margin-top: 3%;
+  margin-bottom: -3%;
+  margin-left: -60%;
+  width: 150px;
+}
+
+.category-card1{
+  background-color: #81afc4bd;
+  box-shadow: 
+    12px 12px 16px 0 rgba(0, 0, 0, 0.25),
+    -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
+  border-radius: 50px;
+  display: flex;
+  height: 55px;
+  /* justify-content: center; */
+
+  width: 200px;
+}
+
+.tab-card{
+  background-color: #81afc4bd;
+  box-shadow: 
+    12px 12px 16px 0 rgba(0, 0, 0, 0.25),
+    -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
+  border-radius: 50px;
+  height: 55px;
+  margin-top: 5%;
+  margin-bottom: -8%;
+  float:right;
+  margin-right: -23%;
+  width: 260px;
+  padding:3%;
+}
+
+.card1{
+  box-shadow: 
+  12px 12px 16px 0 rgba(0, 0, 0, 0.25),
+  -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
+}
 .card-footer:last-child {
   border-radius: 0 0 calc(0.35rem - 1px) calc(0.35rem - 1px);
 }
@@ -6542,6 +6595,7 @@ button.bg-dark:focus {
 
 .border-dark {
   border-color: #5a5c69 !important;
+
 }
 
 .border-white {
@@ -10019,7 +10073,7 @@ a:focus {
 }
 
 .border-left-primary {
-  border-left: 0.35rem solid #3d64db !important;
+  border-left: 0.45rem solid #3d64db !important;
 }
 
 .border-bottom-primary {
@@ -10141,7 +10195,7 @@ a:focus {
 
 .sidebar .nav-item .nav-link .img-profile,
 .topbar .nav-item .nav-link .img-profile {
-  height: 5vh;
+  /* height: 5vh; */
   width: 5vw;
 }
 
@@ -11309,19 +11363,134 @@ body.sidebar-toggled footer.sticky-footer {
     /* background-color:rgba(150, 50, 150, 0.425); */
   }
 
-  .container-fluid{
-    position:relative;
-    background-color: rgba(255, 255, 255,0.2);
+  /* .container-fluid{ */
+    /* position:relative;
+    background-color:#00b8dd36;
     padding: 20px;
     color:#008eb5;
-    border-radius: 5px;
-    border: solid 2px transparent;
+    background-size: cover; */
+    /* border-radius: 5px; */
+    /* border: solid 2px transparent;
     background-clip: padding-box;
     box-shadow: 10px 10px 10px  rgba(46, 54, 68, 0.03);
-    backdrop-filter: blur(40px);
+    backdrop-filter: blur(40px); */
     /* width: 80%; */
-    margin:3%;
+    /* margin:3%; */
+  /* } */
+
+  .glass-button{
+   
+    align-items: center;
+    background: linear-gradient(-45deg, rgba(13, 36, 165, 0.22), rgba(110, 103, 103, 0.25));
+    border-radius: 20px;
+    box-shadow: 
+      12px 12px 16px 0 rgba(0, 0, 0, 0.25),
+      -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
+      color:#0026ff
+  }
+  
+
+  .glass-button:hover {
+    background-color: rgba(255,255,255,0.2);
+    color: black;
+  }
+  
+  .glass-button{
+   
+    align-items: center;
+    background: linear-gradient(-45deg, rgba(13, 36, 165, 0.22), rgba(110, 103, 103, 0.25));
+    border-radius: 20px;
+    box-shadow: 
+      12px 12px 16px 0 rgba(0, 0, 0, 0.25),
+      -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
+      color:#0026ff
+  }
+  
+
+  .glass-button:hover {
+    background-color: rgba(255,255,255,0.2);
+    color: black;
   }
 
-  
-  
+
+  #btn1{
+    height: 8vh;
+    width:4vw;
+    position: relative;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+    box-shadow: inset -4px -4px 8px rgba(165, 162, 162, 0.5),
+    inset 8px 8px 16px rgba(0, 0, 0, 0.1);
+
+}
+  #btn1:hover {
+    opacity: 1;
+    box-shadow: -6px -6px 10px rgba(255, 255, 255, 0.8),
+      6px 6px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .login-div{
+    width:410px;
+    height: 430px;
+    padding: 10px 35px 25px 35px;
+    border-radius: 40px;
+    background: #ecf0f356;
+    box-shadow: 13px 13px 20px #cbced1,
+                -13px -13px 20px #ffffff;
+    backdrop-filter: blur(4px);
+  }
+
+  .title {
+    text-align: center;
+    font-size: 28px;
+    padding-top: 24px;
+    letter-spacing: 0.5px;
+  }
+
+  .fields {
+    width: 100%;
+    padding: 5px 5px 5px 5px;
+  }
+  .fields input {
+    border: none;
+    outline:none;
+    background: none;
+    font-size: 18px;
+    color: #555;
+    padding:20px 10px 20px 5px;
+  }
+
+  .form-control {
+    margin-bottom: 30px;
+    border-radius: 25px;
+    box-shadow: inset 8px 8px 8px #cbced1,
+                inset -8px -8px 8px #ffffff;
+  }
+
+.logo{
+  background:url("https://static.vecteezy.com/system/resources/thumbnails/000/550/881/small/user_icon_003.jpg");
+  background-position:center;
+  background-size: cover;
+  width:100px;
+  height: 100px;
+  border-radius: 50%;
+  margin:-18% auto;
+  box-shadow: 
+  /* logo shadow */
+  0px 0px 2px #5f5f5f,
+  /* offset */
+  0px 0px 0px 5px #ecf0f3,
+  /*bottom right */
+  8px 8px 15px #a7aaaf,
+  /* top left */
+  -8px -8px 15px #ffffff
+  ;
+}
+
+#bg{
+  background-image: url('https://miro.medium.com/max/4320/1*dcKwHar0VeTQBimCyY6MLQ.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
