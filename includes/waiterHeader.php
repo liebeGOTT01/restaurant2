@@ -1,3 +1,11 @@
+<?php 
+session_start();
+if($_SESSION['user_email']==""){
+    header("location:index.php");
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,12 +26,7 @@
     <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="vendor/parsley/parsley.css"/>
     <link rel="stylesheet" type="text/css" href="vendor/bootstrap-select/bootstrap-select.min.css"/>
-
-
-
-
 </head>
-
 <body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -124,3 +127,9 @@
     <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
     <script type="text/javascript" src="vendor/parsley/dist/parsley.js"></script>
     <script type="text/javascript" src="vendor/bootstrap-select/bootstrap-select.min.js"></script>
+
+<script>
+	if ( window.history.replaceState ) {
+		window.history.replaceState( null, null, window.location.href );
+	}
+</script>

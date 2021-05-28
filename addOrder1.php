@@ -251,3 +251,46 @@ $tableNo=$_GET['id'];
 		</div>
 	</form>
 	</div>
+
+	<?php 
+	if (isset($_POST['user_email']) && isset($_POST['user_password']) && isset($_POST['role'])) {
+		$user_email = $_POST['user_email'];
+		$user_password = $_POST['user_password'];
+		$role = $_POST['role'];
+		if (empty($user_email)) {
+			header("Location: ../index.php?error=User Name is Required");
+		}else if (empty($user_password)) {
+			header("Location: ../index.php?error=user_password is Required");
+		}else {
+			$connection = $this->openConnection();
+			$statement = $connection->prepare("SELECT * FROM user_table WHERE user_email= $user_email AND user_password = $user_password");
+			$statement->execute();
+			$user = $statement->fetch();
+			$total = $statement->rowCount();
+	
+			if ($total === 1) {
+				// the user name must be unique
+				if ($user['user_password'] === $user_password && $user['role'] == $role) {
+					$_SESSION['user_name'] = $user['user_name'];
+					$_SESSION['user_id'] = $user['user_id'];
+					$_SESSION['role'] = $user['role'];
+					$_SESSION['user_email'] = $user['user_email'];
+	
+					if ($_SESSION['role'] == 'admin'){
+						header("Location: ../adminDash.php");
+					}else {
+						header("Location: ../waiterDash.php");
+					}
+	
+				}else {
+					header("Location: ../index.php?error=Incorect User name or password");
+				}
+			}else {
+				header("Location: ../index.php?error=Incorect User name or password");
+			}
+		}
+		
+	}else {
+		header("Location: ../index.php");
+	}
+	?>

@@ -1,3 +1,11 @@
+
+<?php 
+session_start();
+if($_SESSION['user_email']==""){
+    header("location:index.php");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -76,7 +84,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="category.php"><i class="fas fa-th-list"></i>
-                            <span>Menu List</span>  <!--CATEGORY-->
+                            <span>Category</span>  <!--CATEGORY-->
                         </a>
                     </li>
                     <li class="nav-item">
@@ -85,13 +93,7 @@
                             <span>Product</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="user.php">
-                            <i class="fas fa-users-cog"></i>
-                            <span>User</span>
-                        </a>
-                    </li>
-
+                
                     <!-- Sidebar Toggler (Sidebar) -->
                     <div class="text-center d-none d-md-inline">
                         <button class="rounded-circle border-0 glass-button" id="sidebarToggle"></button>
@@ -135,3 +137,9 @@
             <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
             <script type="text/javascript" src="vendor/parsley/dist/parsley.js"></script>
             <script type="text/javascript" src="vendor/bootstrap-select/bootstrap-select.min.js"></script>
+
+<script>
+	if ( window.history.replaceState ) {
+		window.history.replaceState( null, null, window.location.href );
+	}
+</script>

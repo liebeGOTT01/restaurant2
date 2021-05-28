@@ -1,11 +1,12 @@
 <?php
+
 class functions{
-    // Initializing varaibles to be used in connecting to the online database using phpmyadmin
+    // Initializing variables to be used in connecting with the online database 
     private $server = "mysql:host=remotemysql.com;dbname=Kfsv6dYlFX"; // server and db
     private $user = "Kfsv6dYlFX";                                     // username
     private $password = "jBU4up1WuP";                                 // password 
 
-    // making some options
+    // PDO options
     private $options = array(
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
@@ -35,45 +36,38 @@ class functions{
 
     //function for log in based on the role
     public function login(){
-        if (isset($_POST['user_email']) && isset($_POST['user_password']) && isset($_POST['role'])) {
-            $user_email = $_POST['user_email'];
-            $user_password = $_POST['user_password'];
+        if(isset($_POST['login'])){
+            $email = $_POST['user_email'];
+            $password = $_POST['user_password'];
             $role = $_POST['role'];
-            if (empty($user_email)) {
-                header("Location: ../index.php?error=User Name is Required");
-            }else if (empty($user_password)) {
-                header("Location: ../index.php?error=user_password is Required");
-            }else {
-                $connection = $this->openConnection();
-                $statement = $connection->prepare("SELECT * FROM user_table WHERE user_email= $user_email AND user_password = $user_password");
-                $statement->execute();
-                $user = $statement->fetch();
-                $total = $statement->rowCount();
-        
-                if ($total === 1) {
-                    // the user name must be unique
-                    if ($user['user_password'] === $user_password && $user['role'] == $role) {
-                        $_SESSION['user_name'] = $user['user_name'];
-                        $_SESSION['user_id'] = $user['user_id'];
-                        $_SESSION['role'] = $user['role'];
-                        $_SESSION['user_email'] = $user['user_email'];
-        
-                        if ($_SESSION['role'] == 'admin'){
-                            header("Location: ../adminDash.php");
-                        }else {
-                            header("Location: ../waiterDash.php");
-                        }
-        
-                    }else {
-                        header("Location: ../index.php?error=Incorect User name or password");
-                    }
-                }else {
-                    header("Location: ../index.php?error=Incorect User name or password");
-                }
+            echo $email;
+            echo $password;
+           
+            $connection = $this->openConnection();
+            $statement = $connection->prepare("SELECT * FROM user_table WHERE user_email=? AND user_password=?");
+            $statement->execute([$email, $password]);
+            $user = $statement->fetch();
+            $total = $statement->rowCount();
+            $role = $_POST['role'];
+
+            if($total > 0){
+                if ($user['user_password'] === $password && $user['user_email']== $email && $user['role'] == $role) {
+                    echo "true";
+					$_SESSION['role'] = $user['role'];
+					$_SESSION['user_email'] = $user['user_email'];
+	
+					if ($_SESSION['role'] == 'admin'){
+						header("Location: ./adminDash.php");
+					}else if($_SESSION['role'] == 'waiter'){
+						header("Location: ./waiterDash.php");
+					}
+	
+				}else {
+                    echo "false";
+				}
+            }else{
+                echo "login failed!";
             }
-            
-        }else {
-            header("Location: ../index.php");
         }
     }
 
@@ -146,14 +140,13 @@ class functions{
     //function to update product
     public function updateProduct(){
         if(isset($_POST['editProduct'])){
-            $prod_id=$_POST['prod_id']; 
+            $eprod_id=$_POST['eprod_id']; 
             $newName=$_POST['editProduct_name'];
             $newImage=$_POST['editProduct_image'];
             $newCategory=$_POST['editProduct_category'];
             $newPrice=$_POST['editProduct_price'];  
-            echo '<script> alert($prod_id +$newName+$newImage+$newCategory+$newPrice ) </script>' ;
             $connection =$this->openConnection(); 
-            $statement=$connection->prepare("UPDATE product_table SET product_name='$newName' , product_image='$newImage', category_name= '$newCategory', product_price='$newPrice' WHERE product_id=$prod_id");
+            $statement=$connection->prepare("UPDATE product_table SET product_name='$newName' , product_image='$newImage', category_name= '$newCategory', product_price='$newPrice' WHERE product_id=$eprod_id");
             $statement->execute();
         }
     }
@@ -195,9 +188,10 @@ class functions{
                         <div class="row d-flex justify-content-center">
                         <div class="tab-card">
                                 <a href="addOrder.php?id=<?php echo $table['table_name']?>"><button type="button" class="btn btn-info btn-m mr-2 text-primary" style="border-radius:20px">Add Order</button></a>
-                                <a href="seeOrder.php"><button type="button" class="btn btn-warning btn-m text-danger" style="border-radius:20px">Order Details</button></a>
+                                <a href="seeOrder.php?tableId=<?php echo $table['table_name']?>"><button type="button" class="btn btn-warning btn-m text-danger" style="border-radius:20px">Order Details</button></a>
                             </div>  
                         </div>
+
                         </div>
                     </div>
                 </div>
@@ -235,9 +229,9 @@ class functions{
     //function to delete a specific ordered product
     public function deleteOrderedProduct(){
         if(isset($_POST['deleteOrderedProduct'])){
-            $prod_id= $_POST['prod_id'];    
+            $product_id= $_POST['p_id'];    
             $connection =$this->openConnection(); 
-            $statement=$connection->prepare("DELETE FROM order_item_table WHERE order_item_id = $prod_id");
+            $statement=$connection->prepare("DELETE FROM order_item_table WHERE order_item_id = $product_id");
             $statement->execute();
         }
     }
@@ -283,11 +277,46 @@ class functions{
 
     //function to get the total amount
     public function getTotal(){
+        $table=$_GET['tableId'];  
         $connection =$this->openConnection(); 
-        $statement=$connection->prepare("select sum(amount) as totalAmount from  order_item_table where order_status='delivered'");
+        $statement=$connection->prepare("SELECT SUM(amount) AS totalAmount FROM  order_item_table WHERE order_status='delivered' and table_name='".$table."'");
         $statement->execute();
         $totalAmount = $statement->fetch();
         echo $totalAmount['totalAmount'];
     }
+
+    public function getAddOrderTotal(){
+        $tablename=$_GET['id']; 
+        $connection =$this->openConnection(); 
+        $statement=$connection->prepare("SELECT SUM(amount) as totalAmount from  order_item_table  WHERE table_name='".$tablename."'");
+        $statement->execute();
+        $total = $statement->fetch();
+        echo $total['totalAmount'];
+    }
+
+    public function payOrder(){
+        if(isset($_POST['payBtn'])){
+            $salesTable= $_POST['salesTable'];
+            $salesAmount= $_POST['salesAmount'];
+            $payDate = date("Y/m/d");
+            $table=$_GET['tableId']; 
+            $connection =$this->openConnection();
+            $statement=$connection->prepare("INSERT INTO  sales_table(table_name,amount,sold_at) VALUES('$salesTable','$salesAmount','$payDate')");
+            $statement->execute();
+
+            $statement2=$connection->prepare("DELETE FROM order_item_table WHERE table_name='".$salesTable."'");
+            $statement2->execute();
+        }
+    }
+
+    public function getDailySales(){
+        $today = date("Y/m/d");
+        $connection =$this->openConnection(); 
+        $statement=$connection->prepare("SELECT SUM(amount) AS todaySales FROM  sales_table WHERE sold_at='".$today."'");
+        $statement->execute();
+        $todaySales = $statement->fetch();
+        echo "₱ 8". $todaySales['todaySales'];
+    }
+    
 }
 ?>

@@ -1,4 +1,5 @@
 <?php
+
 include('includes/adminHeader.php'); 
 include('includes/function.php');
 $myfunction=new functions; 
@@ -94,17 +95,13 @@ $myfunction->updateProduct();
 								<?php echo $newProduct['category_name'] ?>	
 							</span>	
 							<div class="category-card1 d-flex justify-content-center">
-								
 									<span class="row pt-2 pl-2 pr-2 details">
 										<form action="" method="POST">
-											<button  type="button"class="btn btn-info editBtn" data-toggle="modal" data-target="#editProd">Edit</button>
-											<!-- <a><i class="fa fa-edit text-warning" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="Edit Product" name="editProd"></i></a> &nbsp; -->
+											<button  type="button"class="btn btn-info editBtn" data-toggle="modal" data-target="#editProd">Edit</button>			
 											<input type="hidden" name="prod_id" value="<?php echo $newProduct['product_id']?>">
-											<!-- <a><i class="fa fa-trash text-danger" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="Delete Product" name="deleteProd"></i></a> -->
 											<button type="submit" class="btn btn-danger" name="deleteProd">Delete</button>
 										</form>
 									</span>
-							
 							</div>
 						</p>
 					</div>
@@ -122,7 +119,7 @@ $myfunction->updateProduct();
 							</div>
 							<div class="modal-body">
 								<form method="post">
-									<input type="hidden" name="prod_id" value="<?php echo $newProduct['product_id'] ?>">
+									<input type="text" name="eprod_id" value="<?php echo $newProduct['product_id'] ?>">
 									<div class="form-group input-group-lg">
 										<label for="exampleInputEmail1">Product name</label>
 										<input type="text" class="form-control" name="editProduct_name" aria-label="Large" value="<?php echo $newProduct['product_name'] ?>">
@@ -162,7 +159,6 @@ $myfunction->updateProduct();
 	</div>
 
 <script>
-
 	if ( window.history.replaceState ) {
 		window.history.replaceState( null, null, window.location.href );
 	}

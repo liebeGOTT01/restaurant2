@@ -1,9 +1,10 @@
-<?php  
+<?php 
+ 
     include('includes/function.php');
     $myfunction=new functions; 
 	$myfunction->cancelOrder();
 	$myfunction->deliverOrder();
-	
+	$myfunction->payOrder();
 ?>
 
 <!DOCTYPE html>
@@ -33,6 +34,12 @@
 	<a href="waiterTable.php">
         <button class="btn float-right mt-4 mb-3 glass-button">Back To Table List</button>
     </a>
+	<br><br><br><br>
+		<div class="col">
+			<div class="panel panel-default p-2">
+				<h4><div class="panel-body p-2 text-white text-uppercase"><?php echo $_GET['tableId']?></div></h4>			
+			</div>
+		</div>
 	<table class="table table-bordered table-dark table-striped text-white" id="list">
 			<colgroup>
 				<col width="5%">
@@ -56,13 +63,16 @@
 			</thead>
 			<tbody id="tableBody">
 				<?php
+					$table=$_GET['tableId'];
 					$connection =$myfunction->openConnection(); 
-					$statement=$connection->prepare("SELECT * FROM order_item_table ORDER BY table_name");
-					$statement->execute();
+					$statement=$connection->prepare("SELECT * FROM order_item_table WHERE table_name=?");
+					$statement->execute([$table]);
 					$order = $statement->fetchAll();
-					$i = 1;
-					foreach($order as $order_list){
-						$orderStatus = $order_list["order_status"];
+					$orderCount=$statement->rowCount();
+					if($orderCount > 0){
+						$i = 1;
+						foreach($order as $order_list){
+							$orderStatus = $order_list["order_status"];
 				?>
 					<tr class="text-right text-uppercase" style="font-size:0.95rem;">
 						<td> <?php echo $i++ ?></td>
@@ -97,19 +107,28 @@
 						</td>
 					</tr>
 				<?php
-					}  	
+						} 
+					}else{
+						echo '<p class="h2 align-text-center text-danger"> ----------NO ORDER ADDED YET!---------</p>';
+					} 	
 				?>
 			</tbody>
-			<tfoot>
-				<tr>
-					<th class="text-right" colspan="4">Total</th>
-					<th class="text-right tamount"><?php $myfunction->getTotal(); ?></th>
-					<th></th>
-				</tr>
-			</tfoot>
+				<tfoot>
+					<tr>
+						<th class="text-right" colspan="4">Total</th>
+							<form method="POST">
+								<th class="text-right tamount"><?php $myfunction->getTotal(); ?></th>
+								
+							</form>
+						<th></th>
+					</tr>
+				</tfoot>
 	</table>
-	<button class="btn btn-primary btn-m btn-block float-right mb-4" type="button" id="pay">Pay</button>
-
+	<form method="POST">
+		<button class="btn btn-primary btn-m btn-block float-right mb-4" type="submit" name="payBtn" id="pay">Pay</button>
+		<input type="hidden" name="salesTable" value="<?php echo $_GET['tableId']?>">
+		<input type="hidden" name="salesAmount" value="<?php $myfunction->getTotal(); ?>">
+	</form>
 
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

@@ -1,7 +1,10 @@
 <?php 
+
     include('includes/function.php');
     $myfunction=new functions; 
 	$myfunction->addOrder();
+	$myfunction->deleteOrderedProduct();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,6 +32,9 @@
       .nopadding {
         padding:0 !important;
       }
+	  .nomargin{
+		margin-right:0 !important;
+	  }
 </style>
 <body>
 <div class="container-fluid">
@@ -36,8 +42,8 @@
 	<a href="waiterTable.php">
 		<button class="btn btn-primary" style="border-radius:20px">Back To Table List</button>
 	</a>
-	<div class="row mr-2">
-		<div class="col-7" id="left">
+	<div class="row">
+		<div class="col-6">
 			<div class="row">
 				<?php 
 					$connection = $myfunction->openConnection();
@@ -46,11 +52,10 @@
 					$product = $statement->fetchAll();
 					$productCount = $statement->rowCount();
 					foreach($product as $newProduct) {
-						?>
-				
-				<div class="card col-4 m-5 nopadding" >
+				?>
+				<div class="card col-3 m-1 nopadding" >
 					<form  method="POST">
-						<img class="card-img-top" src="<?php echo $newProduct['product_image'] ?>" alt="Card image cap">
+						<img class="card-img-top" style="height:8rem;" src="<?php echo $newProduct['product_image'] ?>" alt="Card image cap">
 						<div class="card-body">
 							<p class="card-text">
 								<span class="prod_price" name="price">
@@ -75,11 +80,10 @@
 									<!-- control-label -->
 									<span class="input-group-text bg-info text-primary">Qty: </span>
 								</div>
-								<input name="qty" type="number" min="1" value="1"class="form-control text-right" step="any" id="qty" >
+								<input name="qty" type="number" min="1" value="1" class="form-control text-right" step="any" id="qty" >
 							</div>
-							<button type="submit" class="btn add-order mt-3 glass-button" name="addOrder">Add Order</button>
+							<button type="submit" class="btn add-order mt-3 glass-button " name="addOrder">Add Order</button>
 						</div>
-				
 					</form>
 			
 				</div>
@@ -88,41 +92,23 @@
 				?>
 			</div>
 		</div>
-
-		<div class="border-left border-dark" style="margin-left:-4%;"></div>
-		<div class="col-5 h-100 fixed-top float-right offset-7" id="middle">
-    			<!-- <a href="waiterTable.php">
-				<button class="btn btn-primary float-right">Back To Table List</button>
-			</a> -->
+		<div class="col-6 nopadding nomargin">
 			<form action="" method="POST">
-					<!-- <div class="col">
-						<label class="control-label">List of Tables</label>
-						<select name="tableOrder" id="tableSelect" class="form-control" required data-parsley-trigger="change">
-							<option value="">Select Table</option>
-							<?php
-								//$myfunction->getTableName();
-							?>
-					</select>
-					</div> -->
-				<br>
-				<br>
 				<div class="col">
 					<div class="panel panel-default p-2">
 						<h4><div class="panel-body p-2 text-white text-uppercase" name=""><?php echo $_GET['id']?></div></h4>
 					</div>
 				</div>
-        
 				<div class="container">
 					<div class="row">
-				
 						<table class="table table-bordered" id="list">
 							<colgroup>
-								<col width="5%">
+								<col width="3%">
 								<col width="30%">
 								<col width="10%">
 								<col width="25%">
 								<col width="25%">
-								<col width="5%">
+								<col width="7%">
 							</colgroup>
 							<thead>
 								<tr>
@@ -136,56 +122,47 @@
 							</thead>
 							<tbody id="tbody">
 								<?php
+								    $table=$_GET['id'];
 									$connection =$myfunction->openConnection(); 
-									$statement=$connection->prepare("SELECT * FROM order_item_table ORDER BY table_name");
-									$statement->execute();
+									$statement=$connection->prepare("SELECT * FROM order_item_table WHERE table_name=?");
+									$statement->execute([$table]);
 									$order = $statement->fetchAll();
-								
+									$orderCount=$statement->rowCount();
+									if($orderCount > 0){
 									$i = 1;
 										foreach($order as $order_list){
 										?>
 											<tr>
 												<td><?php echo $i++?></td>
 												<td class="text-capitalize" style="color:#0A69F3;"><?php echo $order_list["product_name"]?></td>
-												<td style=""><?php echo $order_list["product_quantity"]?></td>
-												<td class="text-danger">₱<?php echo $order_list["product_price"]?></td>
-												<td style="color:maroon">₱<?php echo $order_list["product_quantity"]*$order_list["product_price"]?></td>
+												<td class="text-right" style=""><?php echo $order_list["product_quantity"]?></td>
+												<td class="text-danger text-right">₱<?php echo $order_list["product_price"]?></td>
+												<td class="text-right" style="color:maroon">₱<?php echo $order_list["product_quantity"]*$order_list["product_price"]?></td>
 												<td>
-													<form method="POST">
-														<button type="submit" name="deleteOrderedProduct" class="btn btn-danger text-white btn-circle">X
-															<input type="hidden" name="prod_id" value="<?php echo $order_list["order_item_id"]?>">
-														</button>
-													</form>
+													<button type="submit" name="deleteOrderedProduct" class="btn btn-danger text-white btn-circle">X
+														<input type="hidden" name="p_id" value="<?php echo $order_list["order_item_id"]?>">
+													</button>
 												</td>
 											</tr>
 										<?php
 										} 
+									}else{
+                                      echo '<p class="h2 align-text-center text-danger"> ----------NO ORDER ADDED YET!---------</p>';
+									}
 								?>
 							</tbody>
 							<tfoot>
 								<tr>
 									<th class="text-right" colspan="4">Total</th>
-									<th class="text-right tamount text-weight-bold" style="color:crimson">₱</th>
+									<th class="text-right tamount text-weight-bold" style="color:crimson">₱<?php $myfunction->getAddOrderTotal(); ?></th>
 									<th></th>
 								</tr>
 							</tfoot>
 						</table>
-						<button type="submit" class="btn btn-primary w-100">Confirm Order</button>
-						<script>
-							$(document).ready(function(){
-							$('#tableSelect').on('change',function(){
-								console.log($(this).val());
-								$('#tableno').val($(this).val());
-								
-								})
-								$count=1;
-								$('#tableSelect').change(function(){
-									$('.panel-body').html($('#tableSelect').val())
-								})
-							})
-						</script>	
-					</div>
-					
+						<a href="waiterTable.php" class="w-100">
+							<button type="button" class="btn btn-primary w-100">Confirm Order</button>
+						</a>
+					</div>				
 				</div>
 			</form>
 		</div>
