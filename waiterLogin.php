@@ -1,5 +1,9 @@
 <?php 
 	session_start();
+    echo $_SESSION['user_email'];
+    if($_SESSION['user_email']==""){
+        header("location:index.php");
+    }
 	include('includes/function.php');
 	$myfunction=new functions; 
 	$myfunction->login();
