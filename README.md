@@ -13,8 +13,8 @@ How to use this project:
          -- password : password
   *WAITER -- email : waiter@email.com
           -- password : password
-  *KITCHEN -- localhost:<port>/restaurantPOS/kitchen.php
-  *CUSTOMER -- localhost:<port>/restaurantPOS/customer.php
+  *KITCHEN -- localhost:*port*/restaurantPOS/kitchen.php
+  *CUSTOMER -- localhost:*port*/restaurantPOS/customer.php
 5. ENJOY!
 
 *SESSION IS ALSO IMPLEMENTED.
