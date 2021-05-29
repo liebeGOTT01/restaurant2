@@ -75,8 +75,23 @@ $myfunction->updateProduct();
 					foreach($product as $newProduct) {
 				?>
 
-				<div class="card mb-4 mr-5 mt-5 border border-transparent" style="width:16rem;">
-					<img class="card-img-top" src="<?php echo $newProduct['product_image'] ?>">
+				<div class="card mb-4 mr-5 border border-transparent h-200" style="width:16rem;">
+					<div class="con1">
+						<img class="card-img-top" src="<?php echo $newProduct['product_image'] ?>" style="height:10rem;">
+						<div class="middle">
+							<div class="texts">
+								<div class="category-card1 d-flex justify-content-center">
+									<span class="row pt-2 pl-2 pr-2 details">
+										<form action="" method="POST">
+											<button  type="button"class="btn btn-info editBtn" data-toggle="modal" data-target="#editProd">Edit</button>			
+											<input type="hidden" name="prod_id" value="<?php echo $newProduct['product_id']?>">
+											<button type="submit" class="btn btn-danger" name="deleteProd">Delete</button>
+										</form>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
 					<div class="card-body">
 						<div class="row">
 							<div class="col">
@@ -94,7 +109,7 @@ $myfunction->updateProduct();
 							<span class="">
 								<?php echo $newProduct['category_name'] ?>	
 							</span>	
-							<div class="category-card1 d-flex justify-content-center">
+							<!-- <div class="category-card1 d-flex justify-content-center">
 									<span class="row pt-2 pl-2 pr-2 details">
 										<form action="" method="POST">
 											<button  type="button"class="btn btn-info editBtn" data-toggle="modal" data-target="#editProd">Edit</button>			
@@ -102,7 +117,7 @@ $myfunction->updateProduct();
 											<button type="submit" class="btn btn-danger" name="deleteProd">Delete</button>
 										</form>
 									</span>
-							</div>
+							</div> -->
 						</p>
 					</div>
 				</div>

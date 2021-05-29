@@ -40,8 +40,8 @@ class functions{
             $email = $_POST['user_email'];
             $password = $_POST['user_password'];
             $role = $_POST['role'];
-            echo $email;
-            echo $password;
+            // echo $email;
+            // echo $password;
            
             $connection = $this->openConnection();
             $statement = $connection->prepare("SELECT * FROM user_table WHERE user_email=? AND user_password=?");
@@ -66,7 +66,10 @@ class functions{
                     echo "false";
 				}
             }else{
-                echo "login failed!";
+                echo "<div class='alert alert-danger' role='alert'> 
+                        Login failed! 
+            
+                    </div> ";
             }
         }
     }
