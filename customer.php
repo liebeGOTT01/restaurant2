@@ -73,7 +73,7 @@
                 <i class="ion-ios-clock-outline icon-big"></i>
                 <h3>Operation Hours</h3>
                 <p>
-                   We are happy to serve you from 6am to 9pm. 
+                   We are happy to serve you from 6am to 9pm. Monday to Sunday. Jot this down as we have some amazing surprises prepared for you.
                 </p>
             </div>
             <div class="col-sm-6 col-md-3 span-1-of-4 box">
