@@ -73,14 +73,14 @@
                 <i class="ion-ios-clock-outline icon-big"></i>
                 <h3>Operation Hours</h3>
                 <p>
-                    Never cook again! We really mean that. Our subscription plans include up to 365 days/year coverage. You can also choose to order more flexibly if that's your style.
+                   We are happy to serve you from 6am to 9pm. 
                 </p>
             </div>
             <div class="col-sm-6 col-md-3 span-1-of-4 box">
                 <i class="ion-ios-bell-outline icon-big"></i>
                 <h3>Ready in 10 minutes</h3>
                 <p>
-                    You're only twenty minutes away from your delicious and super healthy meals delivered right to your home. We work with the best chefs in each town to ensure that you're 100% happy.
+                    You're only 10 minutes away from your delicious and super healthy meals. We work with the best chefs in each town to ensure that you're 100% FINE DINING with us.
                 </p>
             </div>
             <div class="col-sm-6 col-md-3 span-1-of-4 box">
@@ -94,7 +94,7 @@
                 <i class="ion-ios-cart-outline icon-big"></i>
                 <h3>Give Suggestions</h3>
                 <p>
-                    We don't limit your creativity, which means you can order whatever you feel like. You can also choose from our menu containing over 100 delicious meals. It's up to you!
+                   Craving for another menu? feel free to give us new suggestions to help us improve our service and add more menu. <br> FINE TO SERVE YOU!
                 </p>
             </div>
         </div>
