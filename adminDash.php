@@ -11,7 +11,7 @@
                     <!-- Content Row -->
                     <div class="row">
                         <!-- Earnings (Monthly) Card Example -->
-                        <div class=" mb-4">
+                        <div class=" mb-4 ml-3">
                             <div class="card border-left-primary shadow h-100 py-2 card1">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">

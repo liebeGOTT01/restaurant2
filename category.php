@@ -50,8 +50,8 @@ $myfunction->deleteCat();
 								Menu Category
 							</div>
 							<div class="card-body">
-								<table class="table table-bordered table-hover">
-									<thead>
+								<table class="table table-sm table-hover table-striped" id="table-catmenu">
+									<thead class="bg-info">
 										<tr>
 											<th class="text-center">#</th>
 											<th class="text-center">NAME</th>
@@ -69,7 +69,7 @@ $myfunction->deleteCat();
 										?>
 											<tr>
 												<td class="text-center"><?php echo $i++ ?></td>
-												<td class="">
+												<td class="text-capitalize">
 													<?php echo $category['name'] ?>
 												</td>
 												<td class="text-center">
@@ -86,7 +86,7 @@ $myfunction->deleteCat();
 											<div class="modal fade editModal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" id="editModal">
 												<div class="modal-dialog" role="document">
 													<div class="modal-content">
-														<div class="modal-header">
+														<div class="modal-header bg-primary text-white">
 															<h5 class="modal-title" id="exampleModalLabel">Edit Category</h5>
 															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 																<span aria-hidden="true">&times;</span>
@@ -97,7 +97,7 @@ $myfunction->deleteCat();
 															<input type="hidden" name="ID" value="<?php echo $category['id'] ?>">
 															<div class="form-group input-group-lg">
 																<label for="exampleInputEmail1">Category</label>
-																<input type="text" class="form-control"name="newCat" aria-label="Large" placeholder="<?php echo $category['name'] ?>">
+																<input type="text" class="form-control" name="newCat" aria-label="Large" placeholder="<?php echo $category['name'] ?>">
 															</div>
 														</div>
 														<div class="modal-footer">
