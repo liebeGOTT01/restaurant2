@@ -284,9 +284,6 @@
           </ul>
         </div>
       </div>
-      <div class="row">
-        <p>Copyright &copy; 2019 by Omnifood. All rights reserved</p>
-      </div>
     </footer>
 
     <script src="resources/js/script.js"></script>
