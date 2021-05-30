@@ -74,7 +74,7 @@ $myfunction->deleteCat();
 								<tr>
 
 									<td class="text-center"><?php echo $i++ ?></td>
-									<td class="text-capitalize">
+									<td class="catName">
 										<?php echo $category['name'] ?>
 									</td>
 									<td class="text-center">
@@ -119,7 +119,7 @@ $myfunction->deleteCat();
 					<input type="hidden" id="id" name="ID" value="<?php echo $category['id']?>">
 					<div class="form-group input-group-lg">
 						<label for="exampleInputEmail1">Category</label>
-						<input type="text" class="form-control text-center" id="category" name="newCat" aria-label="Large" placeholder="">
+						<input type="text" class="form-control text-left" id="category" name="newCat" aria-label="Large" placeholder="">
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -132,6 +132,7 @@ $myfunction->deleteCat();
 </div>
 
 
+
 <!--end of modal for edit category -->
 <script>
     $(document).ready(function(){
@@ -139,16 +140,20 @@ $myfunction->deleteCat();
         $('.fa-pencil-square-o').click(function(){
             console.log("clicked")
             $('#editModal').modal('show');
-            $('#category').attr('placeholder',$(this).parent().parent().siblings('.text-capitalize').html())
+            $('#category').attr('placeholder',$(this).parent().parent().siblings('.catName').html())
             $('#id').val($(this).siblings('.id').val())
         })
     })
 </script>
+
 <style>
 td {
     vertical-align: middle !important;
 }
 
+#category{
+	align-items:left !important;
+}
 body.modal-open .background-container{
     -webkit-filter: blur(4px);
     -moz-filter: blur(4px);
@@ -157,10 +162,5 @@ body.modal-open .background-container{
     filter: blur(4px);
     filter: url("https://gist.githubusercontent.com/amitabhaghosh197/b7865b409e835b5a43b5/raw/1a255b551091924971e7dee8935fd38a7fdf7311/blur".svg#blur);
 	filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='4');
-/* opacity: 5;
-   filter: alpha(opacity=50);
-   background-color: rgba(0, 0, 0, 0.5);
-   transition: all 1s;
-   -webkit-transition: all 1s; */
 }
 </style>

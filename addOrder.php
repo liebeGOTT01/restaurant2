@@ -47,7 +47,7 @@
 	<div class="row mt-5 mb-4 ">
 		<h1 class="h3 text-gray-800 ">Order Menu List</h1> <br><br>
 		<a href="waiterTable.php" class="float-right">
-			<button class="btn btn-primary" style="border-radius:20px;transform:translate(450%, 10%);">Back To Table List</button>
+			<button class="btn btn-primary text-white" style="border-radius:20px;transform:translate(450%, 10%);">Back To Table List</button>
 		</a>
 	</div>
 	<div class="row">

@@ -77,7 +77,7 @@ if($_SESSION['user_email']==""){
 
                     <!-- Nav Item - Dashboard -->
                     <li class="nav-item d-flex justify-content-center">
-                        <a class="nav-link" href="adminDash.php"><i class="fas fa-th-list"></i>
+                        <a class="nav-link" href="salesUpdate.php"><i class="fas fa-th-list"></i>
                             <span>Daily Sales</span>
                         </a>
                     </li>

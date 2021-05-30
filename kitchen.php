@@ -43,7 +43,7 @@
 
 <body>
   <div class="container align-items-center">
-    <h1 class="text-center mt-5">KITCHEN ORDER CONFIRMATION</h1>
+    <h1 class="text-center text-white mt-5">KITCHEN ORDER CONFIRMATION</h1>
     <div class="row">
     <?php 
       $connection = $myfunction->openConnection();
@@ -54,7 +54,7 @@
       foreach($order as $newOrder) {
     ?>
    
-        <div class="card mb-4 nopadding col-5 mr-2" style="width: 30rem;">
+        <div class="card bg-light mb-4 nopadding col-5 ml-5" style="width: 33rem;">
           <div class="card-horizontal">
             <div class="img-square-wrapper nopadding col-4">
                 <form method="POST">
@@ -75,8 +75,8 @@
             </div>
             <div class="card-body col-7 sm-padding">
               <h4 class="card-title"><?php echo $newOrder['table_name'] ?></h4>
-              <span><?php echo $newOrder['product_name'] ?></span> <br>
-              <span><?php echo $newOrder['product_quantity'] ?></span>
+              <span class="text-danger"><?php echo $newOrder['product_name'] ?></span> <br>
+              <span>QTY: <?php echo " ". $newOrder['product_quantity'] ?></span>
               <br><br>
               <form  method="POST">
                 <button type="submit" name="confirmOrder" class="btn btn-primary text-white position-right">Confirm Order
@@ -92,5 +92,10 @@
     <?php }?>
     </div>
   </div>
+  <script>
+    if ( window.history.replaceState ) {
+      window.history.replaceState( null, null, window.location.href );
+    }
+  </script>
 </body>
 </html>

@@ -32,7 +32,7 @@
 <body>
 <div class="container">
 	<a href="waiterTable.php">
-        <button class="btn float-right mt-4 mb-3 glass-button">Back To Table List</button>
+        <button class="btn float-right text-white mt-4 mb-3 glass-button">Back To Table List</button>
     </a>
 	<br><br><br><br>
 		<div class="col">

@@ -172,25 +172,24 @@ class functions{
         $statement->execute();
         $table_result = $statement->fetchAll();
         
-       
         foreach($table_result as $table){
             ?>
             <div class="col mb-4 pb-4">
                     <div class="card" style="width:18rem;">
-                        <div class="card-header bg-primary">
+                        <!-- <div class="card-header bg-primary">
                             <span class="text-center d-flex justify-content-center" style="text-transform:uppercase;color:#0AF3C8;font-weight:bold">
                                 <?php echo $table["table_status"]?>
                             </span>
-                        </div>
+                        </div> -->
                         <div class="position-relative">
                             <img class="img-fluid" src="img/table.png" alt="">
                             <div class="centered text-white h5"><?php echo $table["table_name"]?></div>
                         </div>
                  
-                        <div class="card-footer">
-                        <div class="row d-flex justify-content-center">
-                        <div class="tab-card">
-                                <a href="addOrder.php?id=<?php echo $table['table_name']?>"><button type="button" class="btn btn-info btn-m mr-2 text-primary" style="border-radius:20px">Add Order</button></a>
+                        <div class="card-footer bg-primary">
+                            <div class="row d-flex justify-content-center">
+                            <div class="tab-card">
+                                <a href="addOrder.php?id=<?php echo $table['table_name']?>"><button type="button" class="btn btn-info btn-m mr-2 text-white" style="border-radius:20px">Add Order</button></a>
                                 <a href="seeOrder.php?tableId=<?php echo $table['table_name']?>"><button type="button" class="btn btn-warning btn-m text-danger" style="border-radius:20px">Order Details</button></a>
                             </div>  
                         </div>
