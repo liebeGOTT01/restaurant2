@@ -69,6 +69,48 @@ $myfunction->deleteCat();
 											$categories = $statement->fetchAll();
 											foreach($categories as $category) {
 											
+
+											<!-- modal for edit category -->
+										
+												<div class="modal fade editModal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" id="editModal">
+													<div class="modal-dialog" role="document">
+														<div class="modal-content">
+															<div class="modal-header bg-primary text-white">
+																<h5 class="modal-title" id="exampleModalLabel">Edit Category</h5>
+																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																	<span aria-hidden="true">&times;</span>
+																</button>
+															</div>
+															<div class="modal-body">
+																<form method="post">
+																<input type="hidden" name="ID" value="<?php echo $category['id'] ?>">
+																<div class="form-group input-group-lg">
+																	<label for="exampleInputEmail1">Category</label>
+																	<input type="text" class="form-control" name="newCat" aria-label="Large" placeholder="<?php echo $category['name'] ?>">
+																</div>
+															</div>
+															<div class="modal-footer">
+																<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+																<button type="submit"  name="editCatBtn" class="btn btn-primary">Submit</button>
+																</form>
+															</div>
+														</div>
+													</div>
+												</div>
+										
+											<!--end of modal for edit category -->
+										<?php }?>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<!-- end of Table Panel -->
+				</div>
+			</div>	
+		</div>
+	<!-- </div> -->
+
 										?>
 
                                 <tr>
