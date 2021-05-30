@@ -7,12 +7,9 @@
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-4 text-gray-800 mt-5">Dashboard</h1>
-
-                    <!-- Content Row -->
-                    <div class="row">
                         <!-- Earnings (Monthly) Card Example -->
-                        <div class=" mb-4 ml-3">
-                            <div class="card border-left-primary shadow h-100 py-2 card1">
+                        <div class=" mb-4 ml-3 ">
+                            <div class="card border-left-primary shadow h-100 py-2 card1 w-50">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">

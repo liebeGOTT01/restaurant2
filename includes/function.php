@@ -318,7 +318,7 @@ class functions{
         $statement=$connection->prepare("SELECT SUM(amount) AS todaySales FROM  sales_table WHERE sold_at='".$today."'");
         $statement->execute();
         $todaySales = $statement->fetch();
-        echo "₱ 8". $todaySales['todaySales'];
+        echo "₱". $todaySales['todaySales'];
     }
     
 }
