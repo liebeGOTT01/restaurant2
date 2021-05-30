@@ -28,6 +28,7 @@ $myfunction->updateProduct();
 								</button>
 						</div>
 						<form action="" method="POST">
+				
 							<div class="modal-body">
 								<div class="form-group">
 									<label>Product Name</label>
@@ -123,44 +124,54 @@ $myfunction->updateProduct();
 				</div>
 
 					<!-- Modal to edit product -->
-				<div class="modal fade editModal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" id="editProd">
+				<div class="modal fade editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" id="editProd">
 					<div class="modal-dialog" role="document">
 						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel">Edit Category</h5>
+							<div class="modal-header bg-primary">
+								<h5 class="modal-title text-white" id="exampleModalLabel">Edit Category</h5>
 								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 									<span aria-hidden="true">&times;</span>
 								</button>
 							</div>
 							<div class="modal-body">
-								<form method="post">
-									<input type="text" name="eprod_id" value="<?php echo $newProduct['product_id'] ?>">
-									<div class="form-group input-group-lg">
-										<label for="exampleInputEmail1">Product name</label>
-										<input type="text" class="form-control" name="editProduct_name" aria-label="Large" value="<?php echo $newProduct['product_name'] ?>">
-									</div>
-									<div class="form-group">
-										<label>Category</label>
-										<select name="editProduct_category" class="form-control" required data-parsley-trigger="change">
-											<option value="">Select Category</option>
-												<?php
-													$myfunction->getCateg();
-												?>
-										</select>
-									</div>
-									<div class="form-group input-group-lg">
-										<label for="exampleInputEmail1">Product Image</label>
-										<input type="text" class="form-control" name="editProduct_image" aria-label="Large" value="<?php echo $newProduct['product_image'] ?>">
-									</div>
-									<div class="form-group input-group-lg">
-										<label for="exampleInputEmail1">Product Price</label>
-										<input type="text" class="form-control" name="editProduct_price" aria-label="Large" value="<?php echo $newProduct['product_price'] ?>">
-									</div>
-									<div class="modal-footer">
-										<button type="submit"  name="editProduct" class="btn btn-primary">Submit</button>
-										<button type="button"  class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-									</div>
-								</form>
+					
+									<form method="post">
+										<div class="d-flex justify-content-center">
+											<input class="rounded-pill text-center border border-info font-weight-bold" style="font-size:1.5rem:" type="text" name="eprod_id" value="<?php echo $newProduct['product_id'] ?>">
+										</div>
+											<div class="row">
+											<div class="col">
+												<div class="form-group input-group-lg mt-1">
+													<label for="exampleInputEmail1">Product name</label>
+													<input type="text" class="form-control" name="editProduct_name" aria-label="Large" value="<?php echo $newProduct['product_name'] ?>">
+												</div>
+												<div class="form-group">
+													<label>Category</label>
+													<select name="editProduct_category" class="form-control" required data-parsley-trigger="change">
+														<option value="">Select Category</option>
+															<?php
+																$myfunction->getCateg();
+															?>
+													</select>
+												</div>
+											</div>
+											<div class="col">
+												<div class="form-group input-group-lg">
+													<label for="exampleInputEmail1">Product Image</label>
+													<input type="text" class="form-control" name="editProduct_image" aria-label="Large" value="<?php echo $newProduct['product_image'] ?>">
+												</div>
+												<div class="form-group input-group-lg">
+													<label for="exampleInputEmail1">Product Price</label>
+													<input type="text" class="form-control" name="editProduct_price" aria-label="Large" value="<?php echo $newProduct['product_price'] ?>">
+												</div>
+											</div>
+										</div>
+										<div class="modal-footer">
+											<button type="submit"  name="editProduct" class="btn btn-primary">Submit</button>
+											<button type="button"  class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+										</div>
+									</form>
+							
 							</div>
 						</div>
 					</div>
