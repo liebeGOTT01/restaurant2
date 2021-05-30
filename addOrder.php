@@ -25,6 +25,7 @@
     <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="vendor/parsley/parsley.css"/>
     <link rel="stylesheet" type="text/css" href="vendor/bootstrap-select/bootstrap-select.min.css"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 
 </head>
@@ -35,17 +36,22 @@
 	  .nomargin{
 		margin-right:0 !important;
 	  }
+
+	.container-1{
+		padding-left:6rem;
+		padding-right:6rem;
+	}
 </style>
 <body>
-<div class="container">
+<div class="container-1">
 	<div class="row mt-5 mb-4 ">
 		<h1 class="h3 text-gray-800 ">Order Menu List</h1> <br><br>
-		<a href="waiterTable.php" class="mr-5 float-right">
-				<button class="btn btn-primary" style="border-radius:20px;transform: translate(450%, 10%);">Back To Table List</button>
+		<a href="waiterTable.php" class="float-right">
+			<button class="btn btn-primary" style="border-radius:20px;transform:translate(450%, 10%);">Back To Table List</button>
 		</a>
-		</div>
+	</div>
 	<div class="row">
-		<div class="col-6">
+		<div class="col-6 scroll">
 			<div class="row">
 				<?php 
 					$connection = $myfunction->openConnection();
@@ -55,9 +61,9 @@
 					$productCount = $statement->rowCount();
 					foreach($product as $newProduct) {
 				?>
-				<div class="card col-5 m-1 nopadding" >
+				<div class="card col-5 m-3 mt-2 nopadding">
 					<form  method="POST">
-						<img class="card-img-top" style="height:8rem;" src="<?php echo $newProduct['product_image'] ?>" alt="Card image cap">
+						<img class="card-img-top" style="height:10rem;" src="<?php echo $newProduct['product_image'] ?>" alt="Card image cap">
 						<div class="card-body">
 							<p class="card-text">
 								<span class="prod_price" name="price">
@@ -84,7 +90,7 @@
 								</div>
 								<input name="qty" type="number" min="1" value="1" class="form-control text-right" step="any" id="qty" >
 							</div>
-							<button type="submit" class="btn add-order mt-3 glass-button " name="addOrder">Add Order</button>
+							<button type="submit" class="btn add-order mt-3 glass-button " name="addOrder"><i class="material-icons" style="font-size:30px">playlist_add</i></button>
 						</div>
 					</form>
 			
@@ -94,7 +100,7 @@
 				?>
 			</div>
 		</div>
-		<div class="col-6 nopadding nomargin">
+		<div class="col-6 nopadding nomargin scroll">
 			<form action="" method="POST">
 				<div class="col">
 					<div class="panel panel-default p-2">
@@ -135,9 +141,9 @@
 										foreach($order as $order_list){
 										?>
 											<tr>
-												<td><?php echo $i++?></td>
-												<td class="text-capitalize" style="color:#0A69F3;"><?php echo $order_list["product_name"]?></td>
-												<td class="text-right" style=""><?php echo $order_list["product_quantity"]?></td>
+												<td class="text-warning"><?php echo $i++?></td>
+												<td class="text-capitalize" style="color:#660033;"><?php echo $order_list["product_name"]?></td>
+												<td class="text-right" style="color:white"><?php echo $order_list["product_quantity"]?></td>
 												<td class="text-danger text-right">₱<?php echo $order_list["product_price"]?></td>
 												<td class="text-right" style="color:maroon">₱<?php echo $order_list["product_quantity"]*$order_list["product_price"]?></td>
 												<td>
@@ -155,7 +161,7 @@
 							</tbody>
 							<tfoot>
 								<tr>
-									<th class="text-right" colspan="4">Total</th>
+									<th class="text-right" style="color:#ffccff" colspan="4">Total</th>
 									<th class="text-right tamount text-weight-bold" style="color:crimson">₱<?php $myfunction->getAddOrderTotal(); ?></th>
 									<th></th>
 								</tr>
@@ -175,5 +181,35 @@ if ( window.history.replaceState ) {
   window.history.replaceState( null, null, window.location.href );
 }
 </script>
+
+<style>
+.scroll {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.card .add-order{
+    position: absolute;
+    top: -1%;
+    left: 100%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    font-size: 16px;
+    padding: 8px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius:30px;
+    text-align: center;
+}
+
+.card .add-order:hover {
+	color: white;
+    	background-color: black;
+}
+
+  .card{
+	  position:relative;
+}
+</style>
 </body>
 </html>
