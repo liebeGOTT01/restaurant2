@@ -35,12 +35,10 @@ if($_SESSION['user_email']==""){
             <nav class="sticky-top">
                 <ul class="navbar-nav sidebar accordion" id="accordionSidebar">
                     <li class="nav-item dropdown no-arrow">
-                        <a class="nav-link dropdown-toggle d-flex justify-content-center" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="user_profile_name"></span>
-                                <img class="img-profile rounded-circle" src="./img/user-default.png">
+                        <a class="nav-link dropdown-toggle justify-content-right" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-toggle="tooltip" data-placement="bottom" title="Log out">
+                            <span class="" id="user_profile_name"><img src="./img/user-default.png" class="img-profile rounded-circle"></span>  Waiter
                         </a>
-                        <!-- Dropdown - User Information -->
-                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                <div class="dropdown-menu shadow animated--grow-in " aria-labelledby="userDropdown">
                                     <a class="dropdown-item" href="profile.php">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Profile
@@ -51,7 +49,7 @@ if($_SESSION['user_email']==""){
                                     <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                            Logout
+                                        Logout
                                         </a>
                                     </div>
                                 </li>
@@ -60,7 +58,7 @@ if($_SESSION['user_email']==""){
                         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="waiterDash.php">
                             <div class="sidebar-brand-icon rotate-n-15"></div>
                                 <i class="fas fa-laugh-wink"></i>
-                            <div class="sidebar-brand-text mx-3">Waiter</div>
+                            <div class="sidebar-brand-text mx-3">Fine Dine</div>
                         </a>
 
                 <!-- Divider -->
@@ -75,7 +73,7 @@ if($_SESSION['user_email']==""){
                             <li class="nav-item">
                                 <a class="nav-link" href="waiterProduct.php">
                                     <i class="fas fa-utensils"></i>
-                                    <span>Product</span>
+                                    <span>Menu</span>
                                 </a>
                             </li>
                 <!-- Sidebar Toggler (Sidebar) -->
@@ -111,6 +109,7 @@ if($_SESSION['user_email']==""){
                         </div>
                     </div>
                 <div class="container-fluid mt-5">
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.js"></script>
