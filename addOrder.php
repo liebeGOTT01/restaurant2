@@ -37,11 +37,13 @@
 	  }
 </style>
 <body>
-<div class="container-fluid">
-	<h1 class="h3 mb-4 text-gray-800 mt-5">Order Menu List</h1>
-	<a href="waiterTable.php">
-		<button class="btn btn-primary" style="border-radius:20px">Back To Table List</button>
-	</a>
+<div class="container">
+	<div class="row mt-5 mb-4 ">
+		<h1 class="h3 text-gray-800 ">Order Menu List</h1> <br><br>
+		<a href="waiterTable.php" class="mr-5 float-right">
+				<button class="btn btn-primary" style="border-radius:20px;transform: translate(450%, 10%);">Back To Table List</button>
+		</a>
+		</div>
 	<div class="row">
 		<div class="col-6">
 			<div class="row">
@@ -53,7 +55,7 @@
 					$productCount = $statement->rowCount();
 					foreach($product as $newProduct) {
 				?>
-				<div class="card col-3 m-1 nopadding" >
+				<div class="card col-5 m-1 nopadding" >
 					<form  method="POST">
 						<img class="card-img-top" style="height:8rem;" src="<?php echo $newProduct['product_image'] ?>" alt="Card image cap">
 						<div class="card-body">
@@ -101,7 +103,7 @@
 				</div>
 				<div class="container">
 					<div class="row">
-						<table class="table table-bordered" id="list">
+						<table class="table table-bordered border-dark" id="list">
 							<colgroup>
 								<col width="3%">
 								<col width="30%">
@@ -111,13 +113,13 @@
 								<col width="7%">
 							</colgroup>
 							<thead>
-								<tr>
-									<th>#</th>
-									<th>Menu</th>
-									<th>Quantity</th>
-									<th>Price</th>
-									<th>Amount</th>
-									<th></th>
+								<tr >
+									<th class="text-dark text-right">#</th>
+									<th class="text-dark text-right">Menu</th>
+									<th class="text-dark text-right">Quantity</th>
+									<th class="text-dark text-right">Price</th>
+									<th class="text-dark text-right">Amount</th>
+									<th class="text-dark text-right"></th>
 								</tr>
 							</thead>
 							<tbody id="tbody">
@@ -147,7 +149,7 @@
 										<?php
 										} 
 									}else{
-                                      echo '<p class="h2 align-text-center text-danger"> ----------NO ORDER ADDED YET!---------</p>';
+                                      echo '<center><p class="h2 text-center text-danger"> ------NO ORDER ADDED YET!------</p></center>';
 									}
 								?>
 							</tbody>
